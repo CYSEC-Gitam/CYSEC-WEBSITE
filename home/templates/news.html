@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CTFGames - Cybersecurity Competition</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'main/style.css' %}">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
     <link rel="shortcut icon" type="image/png" href="{% static 'main/logo-black.png' %}" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
@@ -35,7 +35,7 @@
                     <div class="card">
                         <div class="ThumbnailWrapper">
                             <div class="InnerWrapper">
-                                <image src="{{entry.thumbnail}}">
+                                <image src="{{entry.thumbnail}}" style="width: 90%; height: 100%;">
                             </div>
                         </div>
                         <div class="card-text" style="text-align: left;">
@@ -57,6 +57,29 @@
             </div>
         </div>
     </section>
+
+
+    {% if post_pagin.has_other_pages %}
+    <div class="pagination">
+        <ul class="container">
+            {% if post_pagin.has_previous %}
+            <li><a class="btn page-link" href="?page=1">&laquo; First</a></li>
+            <li><a class="btn page-link" href="?page={{ post_pagin.previous_page_number }}">Previous</a></li>
+            {% endif %}
+
+            <li>
+                <span class="btn page-link">
+                    Page {{ post_pagin.number }} of {{ post_pagin.paginator.num_pages }}
+                </span>
+            </li>
+
+            {% if post_pagin.has_next %}
+            <li><a class="btn page-link" href="?page={{ post_pagin.next_page_number }}">Next</a></li>
+            <li><a class="btn page-link" href="?page={{ post_pagin.paginator.num_pages }}">Last &raquo;</a></li>
+            {% endif %}
+        </ul>
+    </div>
+    {% endif %}
 
 
     {% endblock content %}

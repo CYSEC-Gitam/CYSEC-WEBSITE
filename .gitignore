@@ -1,2 +1,7 @@
 
 *.sqlite3
+
+*.pyc
+
+
+/static
