@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'dev'
+    'social_django',
+    'dev',
+    'home',
 ]
 
 MIDDLEWARE = [
@@ -65,6 +67,10 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                
+                # Added the following two
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -106,13 +112,16 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
+
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Calcutta'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_L10N = True
+
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -126,9 +135,30 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 
 SESSION_COOKIE_AGE = 60 * 60 * 1
 
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000','https://cysec.gitam.edu']
+
+
+
+AUTHENTICATION_BACKENDS = [
+  'social_core.backends.google.GoogleOAuth2',
+  'django.contrib.auth.backends.ModelBackend',
+]
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_URL = 'logout'
+LOGOUT_REDIRECT_URL = 'home'
+
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "88003816904-02rd47gt141d43r4j7tgqg858vp8q546.apps.googleusercontent.com"
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "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"
