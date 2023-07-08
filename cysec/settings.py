@@ -162,5 +162,18 @@ LOGOUT_URL = 'logout'
 LOGOUT_REDIRECT_URL = 'home'
 
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "88003816904-02rd47gt141d43r4j7tgqg858vp8q546.apps.googleusercontent.com"
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "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"
+from dotenv import load_dotenv
+load_dotenv() 
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = str(os.getenv('GOOGLE_KEY'))
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = str(os.getenv('GOOGLE_SECRET'))
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = str(os.getenv('MAILID'))
+EMAIL_HOST_PASSWORD = str(os.getenv('MAILPASSWORD'))
+
+
