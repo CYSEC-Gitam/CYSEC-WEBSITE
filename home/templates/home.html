@@ -3,11 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>CYSEC CLUB GITAM</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+    
 </head>
 <body>
-    <center> 
-        <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-link btn-lg active btn-block">Sign in with Google</a>
-    </center>
+    {% include 'bg.html' %}
+    <div class="container">
+        
+
+        <!-- glitch div -->
+        <div class="glitch-div">
+            <h1 class="glitch">
+                <span aria-hidden="true">cysec club</span>
+                cysec club
+                <span aria-hidden="true">cysec club</span>
+            </h1>
+        </div>
+        
+
+        <!-- typewriter text -->
+
+        <div class="h-text" style="margin-left:20px;">
+            <div class="h-animate">
+                <span class="text first-text">CYSEC is&nbsp;</span>
+                <span class="text  sec-text"></span>
+            </div>
+        </div>
+
+    </div>
+    <script src="{% static 'home.js' %}" ></script> 
 </body>
 </html>
