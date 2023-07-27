@@ -1,38 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CYSEC CLUB GITAM</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'home.css' %}">
-    
-</head>
-<body>
+    <link rel="stylesheet" href="{% static 'home.css' %}" />
+  </head>
+  <body>
     {% include 'bg.html' %}
+    {% include 'navbar.html' %}
     <div class="container">
-        
+      <!-- glitch div -->
+      <div class="glitch-div">
+        <h1 class="glitch">
+          <span aria-hidden="true" class="glitchspan">cysec club</span>
+          cysec club
+          <span aria-hidden="true" class="glitchspan">cysec club</span>
+        </h1>
+      </div>
 
-        <!-- glitch div -->
-        <div class="glitch-div">
-            <h1 class="glitch">
-                <span aria-hidden="true">cysec club</span>
-                cysec club
-                <span aria-hidden="true">cysec club</span>
-            </h1>
+      <!-- typewriter text -->
+
+      <div class="h-text">
+        <div class="h-animate">
+          <span class="text first-text">CYSEC is&nbsp;</span>
+          <span class="text sec-text"></span>
         </div>
-        
+      </div>
 
-        <!-- typewriter text -->
+      <!-- cards  -->
 
-        <div class="h-text" style="margin-left:20px;">
-            <div class="h-animate">
-                <span class="text first-text">CYSEC is&nbsp;</span>
-                <span class="text  sec-text"></span>
-            </div>
+      <div class="cardcontainer">
+        <div class="cardbox">
+          <span  class="cardspan" ></span>
+          <div class="cardcontent">
+            <h2>What is CYSEC?</h2>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+            <a href="#">Read More</a>
+          </div>
         </div>
+        <div class="cardbox">
+          <span  class="cardspan"  ></span>
+          <div class="cardcontent">
+            <h2>Our Vision</h2>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+            <a href="#">Read More</a>
+          </div>
+        </div>
+        <div class="cardbox">
+          <span  class="cardspan"  ></span>
+          <div class="cardcontent">
+            <h2>Our Mission</h2>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+            <a href="#">Read More</a>
+          </div>
+        </div>
+      </div>
 
     </div>
-    <script src="{% static 'home.js' %}" ></script> 
-</body>
+
+
+    <script src="{% static 'home.js' %}"></script>
+  </body>
 </html>
