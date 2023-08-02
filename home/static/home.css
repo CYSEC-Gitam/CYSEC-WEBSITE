@@ -5,14 +5,27 @@
 
 /* Glitch css */
 
+/* @font-face {
+  font-family: Hacked;
+  src: url(https://hackedfont.com/HACKED.ttf);
+} */
+
+
+/* .glitch-div{
+  font-family: "Poppins", sans-serif;
+} */
+
+
 .glitch {
   font-size: 8rem;
   font-weight: 700;
   text-transform: uppercase;
   position: relative;
   color: white;
-  margin-top: 40vh;
-  margin-left: 12vw;
+  margin-top: 33vh;
+  margin-left: 15vw;
+
+  
 
   text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75),
     -0.025em -0.05em 0 rgba(0, 255, 0, 0.75),
@@ -98,7 +111,7 @@
 .h-text {
   padding-top: 30px;
   padding-bottom: 70px;
-  margin-left: 15vw;
+  margin-left: 27vw;
 }
 
 .h-animate .text {
@@ -345,110 +358,61 @@
 
 /* faq section css */
 
-.faqcontainer {
-  margin: 0 auto;
-  padding: 4rem;
-  width: 48rem;
+.faq{
   display: flex;
-  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 50px 0;
 }
 
-.accordion .accordion-item {
-  border-bottom: 1px solid #e5e5e5;
+.faqwrapper {
+  width: 60%;
+  
 }
 
-.accordion .accordion-item button[aria-expanded='true'] {
-  border-bottom: 1px solid #03b5d2;
+.faqcontainer {
+  background: #ffffff28;
+  color: rgb(255, 255, 255);
+  border-radius: 20px;
+  box-shadow: 0 5px 10px 0 rgb(0,0,0,0.25);
+  margin: 20px 0;
 }
 
-.accordion button {
+.question {
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 20px 80px 20px 20px;
   position: relative;
-  display: block;
-  text-align: left;
-  width: 100%;
-  padding: 1em 0;
-  color: #7288a2;
-  font-size: 1.15rem;
-  font-weight: 400;
-  border: none;
-  background: none;
-  outline: none;
-}
-
-.accordion button:hover,
-.accordion button:focus {
+  display: flex;
+  align-items: center;
   cursor: pointer;
-  color: #03b5d2;
 }
 
-.accordion button:hover::after,
-.accordion button:focus::after {
-  cursor: pointer;
-  color: #03b5d2;
-  border: 1px solid #03b5d2;
-}
-
-.accordion button .accordion-title {
-  padding: 1em 1.5em 1em 0;
-}
-
-.accordion button .icon {
-  display: inline-block;
+.question::after {
+  content: "\002B";
+  font-size: 2.2rem;
   position: absolute;
-  top: 18px;
-  right: 0;
-  width: 22px;
-  height: 22px;
-  border: 1px solid;
-  border-radius: 22px;
+  right: 20px;
+  transition: 0.2s;
 }
 
-.accordion button .icon::before {
-  display: block;
-  position: absolute;
-  content: '';
-  top: 9px;
-  left: 5px;
-  width: 10px;
-  height: 2px;
-  background: currentColor;
-}
-.accordion button .icon::after {
-  display: block;
-  position: absolute;
-  content: '';
-  top: 5px;
-  left: 9px;
-  width: 2px;
-  height: 10px;
-  background: currentColor;
+.question.active::after {
+  transform: rotate(45deg);
 }
 
-.accordion button[aria-expanded='true'] {
-  color: #03b5d2;
-}
-.accordion button[aria-expanded='true'] .icon::after {
-  width: 0;
-}
-.accordion button[aria-expanded='true'] + .accordion-content {
-  opacity: 1;
-  max-height: 9em;
-  transition: all 200ms linear;
-  will-change: opacity, max-height;
-}
-.accordion .accordion-content {
-  opacity: 0;
+.answercont {
   max-height: 0;
   overflow: hidden;
-  transition: opacity 200ms linear, max-height 200ms linear;
-  will-change: opacity, max-height;
+  transition: 0.3s;
 }
-.accordion .accordion-content p {
-  font-size: 1rem;
-  font-weight: 300;
-  margin: 2em 0;
-  color: #e5e5e5;
+
+.answer {
+  padding: 0 20px 20px;
+  line-height: 1.5rem;
 }
 
 
-
+.faqhyperlink{
+  color: whitesmoke;
+}

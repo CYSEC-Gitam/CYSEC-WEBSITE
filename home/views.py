@@ -3,15 +3,20 @@ from django.shortcuts import render , HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 import feedparser
-
+from .models import *
 # Create your views here.
 
 
 def home(request):
-    if request.user.is_authenticated:
-        return HttpResponse(f"Logged in as {request.user.first_name} {request.user.last_name}")
-    else:
+    if request.method == 'GET':
+        faqs = faq.objects.all().order_by('questionno').values()
+        if request.user.is_authenticated:
+            return HttpResponse(f"Logged in as {request.user.first_name} {request.user.last_name}")
+        else:
+            return render(request,"home.html" , {'faqs':faqs})
+    elif request.method=='POST':
         return render(request,"home.html")
+        
     
     
 def news(request):
@@ -30,3 +35,14 @@ def news(request):
          entry['thumbnail'] = entry.links[1]['href']
     context = {"post_pagin":post_pagin}
     return render(request, 'news.html', context)
+
+
+
+def test(request):
+    if request.method == 'GET':
+        events_list = events.objects.all().values()[0]
+        print(events_list)
+        return render(request, 'test.html', {'event':events_list})
+    else:
+        events_list = events.objects.all().values()
+        return render(request, 'test.html', {'event':events_list})

@@ -31,19 +31,21 @@ setInterval(textLoad, 12000);
 
 
 // faq js
+let question = document.querySelectorAll(".question");
 
-const items = document.querySelectorAll('.accordion button');
-
-function toggleAccordion() {
-  const itemToggle = this.getAttribute('aria-expanded');
-
-  for (i = 0; i < items.length; i++) {
-    items[i].setAttribute('aria-expanded', 'false');
-  }
-
-  if (itemToggle == 'false') {
-    this.setAttribute('aria-expanded', 'true');
-  }
-}
-
-items.forEach((item) => item.addEventListener('click', toggleAccordion));
+question.forEach(question => {
+  question.addEventListener("click", event => {
+    const active = document.querySelector(".question.active");
+    if (active && active !== question) {
+      active.classList.toggle("active");
+      active.nextElementSibling.style.maxHeight = 0;
+    }
+    question.classList.toggle("active");
+    const answer = question.nextElementSibling;
+    if (question.classList.contains("active")) {
+      answer.style.maxHeight = answer.scrollHeight + "px";
+    } else {
+      answer.style.maxHeight = 0;
+    }
+  })
+})
