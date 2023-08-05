@@ -1,6 +1,7 @@
 .container {
   display: grid;
   justify-content: center;
+
 }
 
 /* Glitch css */
@@ -23,7 +24,7 @@
   position: relative;
   color: white;
   margin-top: 33vh;
-  margin-left: 15vw;
+  margin-left: 25vw;
 
   
 

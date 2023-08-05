@@ -39,3 +39,29 @@ class EventsAdmin(ImportExportModelAdmin):
     )
 
 admin.site.register(events, EventsAdmin)
+
+
+
+from django.contrib import admin
+from .models import UserDetails
+
+class UserDetailsAdmin(admin.ModelAdmin):
+    list_display = ('username', 'first_name', 'last_name', 'email', 'gender', 'study_year')
+    search_fields = ('username', 'first_name', 'last_name', 'email', 'registration_no', 'institute')
+    list_filter = ('gender', 'study_year')
+    list_per_page = 20
+
+    fieldsets = (
+        ('Personal Information', {
+            'fields': ('username', 'first_name', 'last_name', 'email', 'date_of_birth', 'gender', 'profile_image', 'bio')
+        }),
+        ('Academic Information', {
+            'fields': ('registration_no', 'institute', 'branch', 'campus', 'study_year')
+        }),
+        ('Social Media Links', {
+            'fields': ('instagram_link', 'linkedin_link', 'github_link', 'tryhackme_link', 'hackthebox_link' , 'discord_link')
+        }),
+    )
+
+admin.site.register(UserDetails, UserDetailsAdmin)
+

@@ -1,0 +1,39 @@
+* {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: black; /* Set the page background to black */
+  color: white; /* Set text color to white */
+  display: flex;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+  overflow-y:scroll ;
+}
+
+.table-container {
+  margin-top: 15vh;
+}
+
+th,
+td {
+  border: 1px solid #dddddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #2222229e; /* Set the table header background color */
+}
+
+tr:nth-child(even) {
+  background-color: #33333397; /* Set the alternate row background color */
+}
+
+a {
+  color: #1e90ff;
+  text-decoration: none;
+}

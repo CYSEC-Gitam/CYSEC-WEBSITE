@@ -25,6 +25,17 @@ def generate_filename(instance, filename):
     # Return the complete path where the file should be saved
     return os.path.join('events/', custom_filename)
 
+
+def generate_profile_image_filename(instance, filename):
+    # Get the current timestamp
+    timestamp = timezone.now().strftime('%Y%m%d_%H%M%S')
+    # Get the original file extension
+    extension = os.path.splitext(filename)[1]
+    # Generate the custom filename using the username and timestamp
+    custom_filename = f"{instance.username}_{timestamp}{extension}"
+    # Return the complete path where the file should be saved
+    return os.path.join('users_profile/', custom_filename)
+
 class events(models.Model):
     event_id = models.IntegerField(primary_key=True)
     title = models.TextField(max_length=1024)
@@ -34,5 +45,47 @@ class events(models.Model):
     dateandtime = models.DateTimeField()
     imageurl = models.ImageField(upload_to=generate_filename)
     link = models.URLField(null=True, blank=True)
+
     
  
+
+
+class UserDetails(models.Model):
+    GENDER_CHOICES = (
+        ('M', 'Male'),
+        ('F', 'Female'),
+        ('O', 'Other'),
+    )
+
+    STUDY_YEAR_CHOICES = (
+        ('1', 'First Year'),
+        ('2', 'Second Year'),
+        ('3', 'Third Year'),
+        ('4', 'Fourth Year'),
+        ('5', 'Fifth Year'),
+        ('6', 'sixth Year'),
+    )
+    
+    username = models.CharField(max_length=50, unique=True)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)
+    date_of_birth = models.DateField()
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+    registration_no = models.CharField(max_length=20)
+    institute = models.CharField(max_length=100)
+    branch = models.CharField(max_length=100)
+    campus = models.CharField(max_length=100)
+    mobile = models.CharField(max_length=15) 
+    study_year = models.CharField(max_length=1, choices=STUDY_YEAR_CHOICES)
+    profile_image = models.ImageField(upload_to=generate_profile_image_filename, blank=True, null=True , default="https://img.freepik.com/premium-vector/anonymous-user-circle-icon-vector-illustration-flat-style-with-long-shadow_520826-1931.jpg?size=626&ext=jpg")
+    bio = models.TextField(max_length=300, blank=True)
+    instagram_link = models.URLField(max_length=200, blank=True)
+    linkedin_link = models.URLField(max_length=200, blank=True)
+    github_link = models.URLField(max_length=200, blank=True)
+    tryhackme_link = models.URLField(max_length=200, blank=True)
+    hackthebox_link = models.URLField(max_length=200, blank=True)
+    discord_link = models.URLField(max_length=200 , blank=True)
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"

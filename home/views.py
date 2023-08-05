@@ -1,22 +1,61 @@
-from django.shortcuts import render , HttpResponse
-
+from django.shortcuts import render , redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+from django.contrib import messages
 import feedparser
+from .forms import UserDetailsForm
 from .models import *
 # Create your views here.
+from datetime import datetime
+import pytz
+
+
+
+
+def convert_utc_to_ist(utc_datetime_str):
+    try:
+        # Parse the date and time strings as UTC
+        utc_datetime = datetime.strptime(utc_datetime_str, "%Y%m%dT%H%M%S").replace(tzinfo=pytz.UTC)
+
+        # Convert to IST timezone
+        ist_timezone = pytz.timezone('Asia/Kolkata')
+        ist_datetime = utc_datetime.astimezone(ist_timezone)
+
+        # Formatting the datetime into a more readable format
+        formatted_datetime = ist_datetime.strftime("%b %d, %Y, %I:%M %p")
+        return formatted_datetime
+    except Exception as e:
+        print("Error:", e)
+        return None
+
+
 
 
 def home(request):
     if request.method == 'GET':
         faqs = faq.objects.all().order_by('questionno').values()
         if request.user.is_authenticated:
-            return HttpResponse(f"Logged in as {request.user.first_name} {request.user.last_name}")
+            if not UserDetails.objects.filter(email=request.user.email).exists():
+                return redirect('user_details')
+            
+            return render(request,"home.html" , {'faqs':faqs})
         else:
             return render(request,"home.html" , {'faqs':faqs})
-    elif request.method=='POST':
-        return render(request,"home.html")
+
         
+def user_details(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form = UserDetailsForm(request.POST, request.FILES )
+            if form.is_valid():
+                form.save()
+                return redirect('home')
+        else:
+            initial_data = {'email': request.user.email}
+            form = UserDetailsForm(initial=initial_data)
+            
+        return render(request, 'user_details.html', {'form': form})
+    else:
+        return redirect('home')
     
     
 def news(request):
@@ -32,9 +71,66 @@ def news(request):
     except EmptyPage:
         post_pagin = paginator.page(paginator.num_pages)
     for entry in post_pagin:
-         entry['thumbnail'] = entry.links[1]['href']
+        if entry.links[1]['url']:
+            entry['thumbnail'] =  entry.links[1]['url']
+        else:
+            entry['thumbnail'] = "https://e7.pngegg.com/pngimages/209/93/png-clipart-newspaper-journalism-android-android-news-online-newspaper.png"
     context = {"post_pagin":post_pagin}
     return render(request, 'news.html', context)
+
+
+
+def ctfs_feed(request):
+    upcoming_ctfs_feed = feedparser.parse('https://feeds.feedburner.com/ctftime/upcoming')
+    current_ctfs_feed = feedparser.parse('https://feeds.feedburner.com/ctftime/current')
+    past_ctfs_feed = feedparser.parse('https://feeds.feedburner.com/ctftime/past')
+    upcoming_entries = upcoming_ctfs_feed.entries
+    current_entries = current_ctfs_feed.entries
+    past_entries = past_ctfs_feed.entries
+    upcoming_ctfs = []
+    current_ctfs = []
+    past_ctfs = []
+    for data in upcoming_entries:
+        ctf = {}
+        ctf['title'] = data['title']
+        ctf['event_url'] = data['link']
+        ctf['start_date'] =convert_utc_to_ist( data['start_date'] )
+        ctf['finish_date'] = convert_utc_to_ist( data['finish_date'])
+        ctf['format_text'] = data['format_text']
+        ctf['organizers'] = data['organizers']
+        ctf['rating_weight'] = float(data['weight'])
+        upcoming_ctfs.append(ctf)
+
+    
+    for data in current_entries:
+        ctf = {}
+        ctf['title'] = data['title']
+        ctf['event_url'] = data['link']
+        ctf['start_date'] =convert_utc_to_ist( data['start_date'] )
+        ctf['finish_date'] = convert_utc_to_ist( data['finish_date'])
+        ctf['format_text'] = data['format_text']
+        ctf['organizers'] = data['organizers']
+        ctf['rating_weight'] = float(data['weight'])
+        current_ctfs.append(ctf)
+        
+    for data in past_entries:
+        ctf = {}
+        ctf['title'] = data['title']
+        ctf['event_url'] = data['link']
+        ctf['start_date'] =convert_utc_to_ist( data['start_date'] )
+        ctf['finish_date'] = convert_utc_to_ist( data['finish_date'])
+        ctf['format_text'] = data['format_text']
+        ctf['organizers'] = data['organizers']
+        ctf['rating_weight'] = float(data['weight'])
+        past_ctfs.append(ctf)
+
+    return render(request , 'ctfs.html' , {'current_ctfs' : current_ctfs , 'past_ctfs' : past_ctfs , 'upcoming_ctfs' : upcoming_ctfs})
+
+
+
+
+
+
 
 
 
@@ -46,3 +142,13 @@ def test(request):
     else:
         events_list = events.objects.all().values()
         return render(request, 'test.html', {'event':events_list})
+    
+
+
+
+
+        
+    
+    
+    
+    

@@ -19,7 +19,7 @@
         padding: 0;
       }
 
-      nav {
+      .cysec_navbar {
         
         position: fixed;
         height: 350px;
@@ -34,7 +34,7 @@
         border-radius: 30px;
       }
 
-      nav ul {
+      .cysec_navbar ul {
         list-style: none;
         display: flex;
         justify-content: space-between;
@@ -43,11 +43,11 @@
         height: 100%;
       }
 
-      nav ul li {
+      .cysec_navbar ul li {
         width: 100%;
       }
 
-      nav ul li a {
+      .cysec_navbar ul li a {
         text-decoration: none;
         color: #ebebeb;
         display: flex;
@@ -57,16 +57,16 @@
         transition: 0.2s all ease;
       }
 
-      nav ul li a svg {
+      .cysec_navbar ul li a svg {
         width: 30px;
         height: 30px;
       }
 
-      nav ul li a svg path {
+      .cysec_navbar ul li a svg path {
         transition: 0.2s all ease;
       }
 
-      nav ul li a span {
+      .cysec_navbar ul li a span {
         position: absolute;
         background-color: #ffffff28;
         padding: 2px 15px;
@@ -79,26 +79,26 @@
         transition: 0.2s all ease;
       }
 
-      nav ul li a.active,
-      nav ul li a:hover {
+      .cysec_navbar ul li a.active,
+      .cysec_navbar ul li a:hover {
         color: #2181e8;
       }
 
-      nav ul li a.active span,
-      nav ul li a:hover span {
+      .cysec_navbar ul li a.active span,
+      .cysec_navbar ul li a:hover span {
         opacity: 1;
         visibility: visible;
         margin-left: 50px;
       }
 
-      nav.active ul li a span {
+      .cysec_navbar.active ul li a span {
         position: relative;
         opacity: 1;
         visibility: visible;
 
       }
 
-      nav.active ul li a:hover span {
+      .cysec_navbar.active ul li a:hover span {
         margin-left: 10px;
         transform: translateX(20%);
       }
@@ -111,93 +111,59 @@
     </script>
   </head>
   <body>
-    <nav id="menuBar">
+    <nav id="menuBar" class="cysec_navbar">
       <ul style="padding-left: 10px">
         <li>
           <a href="javascript:toggleMenu()">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                clip-rule="evenodd"
-              />
-            </svg>
+            <i class = "material-icons">menu</i>
             <span>Menu</span>
           </a>
         </li>
         <li>
           <a href="{% url 'news' %}">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
-              />
-            </svg>
-            <span>Dashboard</span>
+            <i class = "material-icons">newspaper</i>
+            <span>News</span>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'ctftime' %}">
+            <i class = "material-icons">terminal</i>
+            <span>CTFs</span>
           </a>
         </li>
         <li>
           <a href="#">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"
-              />
-            </svg>
-            <span>Customer</span>
+            <i class = "material-icons">groups</i>
+            <span>Team</span>
           </a>
         </li>
         <li>
           <a href="#">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M5 2a2 2 0 00-2 2v14l3.5-2 3.5 2 3.5-2 3.5 2V4a2 2 0 00-2-2H5zm2.5 3a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm6.207.293a1 1 0 00-1.414 0l-6 6a1 1 0 101.414 1.414l6-6a1 1 0 000-1.414zM12.5 10a1.5 1.5 0 100 3 1.5 1.5 0 000-3z"
-                clip-rule="evenodd"
-              />
-            </svg>
-            <span>Order</span>
+            <i class = "material-icons">event</i>
+            <span>Events</span>
+          </a>
+        </li>
+        {% if user.is_authenticated %}
+        <li>
+          <a href="#">
+            <i class = "material-icons">person</i>
+            <span>Profile</span>
           </a>
         </li>
         <li>
-          <a href="#">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"
-              />
-            </svg>
-            <span>Analysis</span>
+          <a href="{% url 'logout' %}">
+            <i class = "material-icons">logout</i>
+            <span>Logout</span>
           </a>
         </li>
+        {% else %}
         <li>
           <a href="{% url 'social:begin' 'google-oauth2' %}">
             <i class = "material-icons">login</i>
             <span>Login</span>
           </a>
         </li>
+        {% endif %}
       </ul>
     </nav>
   </body>
