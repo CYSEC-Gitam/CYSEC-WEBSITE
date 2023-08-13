@@ -27,14 +27,14 @@ admin.site.register(faq, FaqAdmin)
 
 
 class EventsAdmin(ImportExportModelAdmin):
-    list_display = ('event_id', 'title', 'description', 'venue', 'mode', 'dateandtime', 'link')
-    search_fields = ('title', 'venue', 'mode')
-    list_filter = ('dateandtime',)  # Add more fields for filtering if needed
+    list_display = ('event_id', 'title', 'description', 'venue', 'mode', 'start_dateandtime', 'zoom_link')
+    search_fields = ('title', 'venue', 'mode' , 'start_dateandtime')
+    list_filter = ('start_dateandtime',)  # Add more fields for filtering if needed
     list_per_page = 20  # Change the number of items displayed per page
 
     fieldsets = (
         (None, {
-            'fields': ('event_id', 'title', 'description', 'venue', 'mode', 'dateandtime', 'imageurl', 'link')
+            'fields': ('event_id', 'title', 'description', 'venue', 'mode', 'start_dateandtime', 'end_dateandtime', 'imageurl', 'zoom_link' , 'whatsapp_group_link')
         }),
     )
 

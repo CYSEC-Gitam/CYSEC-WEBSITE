@@ -76,6 +76,7 @@ textarea{
   min-height: 45px;
   min-width: 200px;
   border-radius: 5px;
+  padding: 10px;
 }
 
 select{

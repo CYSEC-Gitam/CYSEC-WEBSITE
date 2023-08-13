@@ -42,9 +42,11 @@ class events(models.Model):
     description = models.TextField(max_length=2048)
     venue = models.TextField(max_length=1024)
     mode = models.TextField(max_length=1024)
-    dateandtime = models.DateTimeField()
+    start_dateandtime = models.DateTimeField(null=True, blank=True)
+    end_dateandtime = models.DateTimeField(null=True, blank=True)
     imageurl = models.ImageField(upload_to=generate_filename)
-    link = models.URLField(null=True, blank=True)
+    zoom_link = models.URLField(null=True, blank=True)
+    whatsapp_group_link = models.URLField(null=True, blank=True)
 
     
  
