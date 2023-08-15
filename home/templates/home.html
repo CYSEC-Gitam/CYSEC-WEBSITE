@@ -2,7 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+    <meta name="viewport" content="width=1024 , user-scalable=no" />
     <title>CYSEC CLUB GITAM</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'home.css' %}" />
@@ -106,9 +107,10 @@
                   <div class="card-content">
                     <h2 class="name">{{ ctf.title }}</h2>
                     <p class="description">
-                      The lorem text the section that contains header with
-                      having open functionality. Lorem dolor sit amet
-                      consectetur adipisicing elit.
+                      <b>start date: </b> {{ ctf.start_date }}<br>
+                      <b>finish date: </b> {{ ctf.finish_date }}<br>
+                      <b>CTF format: </b> {{ ctf.format_text }}<br>
+                      <b>CTF rating: </b>{{ ctf.rating_weight }}<br>
                     </p>
                     <a class="btn btn-primary" href="{{ ctf.event_url }}"><button>Register</button></a>
                   </div>
@@ -182,4 +184,12 @@
   <script src="//cdn.jsdelivr.net/gh/freeps2/a7rarpress@main/script.js"></script>
 
   <script src="{% static 'home.js' %}"></script>
-</html>
+  <script>
+    var viewMode = getCookie("view-mode");
+    if(viewMode == "desktop"){
+        viewport.setAttribute('content', 'width=1024');
+    }else if (viewMode == "mobile"){
+        viewport.setAttribute('content', 'width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no');
+    }
+  </script>
+</html> 

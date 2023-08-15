@@ -28,54 +28,38 @@ def convert_utc_to_ist(utc_datetime_str):
 
 
 
-def get_ctfs_feed():
-
-
-    upcoming_ctfs_feed = feedparser.parse('https://feeds.feedburner.com/ctftime/upcoming')
-    current_ctfs_feed = feedparser.parse('https://feeds.feedburner.com/ctftime/current')
-    past_ctfs_feed = feedparser.parse('https://feeds.feedburner.com/ctftime/past')
-    upcoming_entries = upcoming_ctfs_feed.entries
-    current_entries = current_ctfs_feed.entries
-    past_entries = past_ctfs_feed.entries
+def get_ctfs_feed(c , p , u):
+    def ctf_feed(rss):
+        feed = feedparser.parse(rss)
+        entries = feed.entries
+        ctfs = []
+        for data in entries:
+            ctf = {}
+            ctf['title'] = data['title']
+            ctf['event_url'] = data['link']
+            ctf['start_date'] =convert_utc_to_ist( data['start_date'] )
+            ctf['finish_date'] = convert_utc_to_ist( data['finish_date'])
+            ctf['format_text'] = data['format_text']
+            ctf['organizers'] = data['organizers']
+            ctf['rating_weight'] = float(data['weight'])
+            ctf['logo_url'] = data['logo_url']
+            ctfs.append(ctf)
+        return ctfs
+    
+    upcoming_ctfs_feed = 'https://feeds.feedburner.com/ctftime/upcoming'
+    current_ctfs_feed = 'https://feeds.feedburner.com/ctftime/current'
+    past_ctfs_feed = 'https://feeds.feedburner.com/ctftime/past'
     upcoming_ctfs = []
     current_ctfs = []
     past_ctfs = []
-    for data in upcoming_entries:
-        ctf = {}
-        ctf['title'] = data['title']
-        ctf['event_url'] = data['link']
-        ctf['start_date'] =convert_utc_to_ist( data['start_date'] )
-        ctf['finish_date'] = convert_utc_to_ist( data['finish_date'])
-        ctf['format_text'] = data['format_text']
-        ctf['organizers'] = data['organizers']
-        ctf['rating_weight'] = float(data['weight'])
-        ctf['logo_url'] = data['logo_url']
-        upcoming_ctfs.append(ctf)
 
-    
-    for data in current_entries:
-        ctf = {}
-        ctf['title'] = data['title']
-        ctf['event_url'] = data['link']
-        ctf['start_date'] =convert_utc_to_ist( data['start_date'] )
-        ctf['finish_date'] = convert_utc_to_ist( data['finish_date'])
-        ctf['format_text'] = data['format_text']
-        ctf['organizers'] = data['organizers']
-        ctf['rating_weight'] = float(data['weight'])
-        ctf['logo_url'] = data['logo_url']
-        current_ctfs.append(ctf)
+    if c :
+        current_ctfs = ctf_feed(current_ctfs_feed)
+    if p:
+        past_ctfs = ctf_feed(past_ctfs_feed)
+    if u:
+        upcoming_ctfs = ctf_feed(upcoming_ctfs_feed)
         
-    for data in past_entries:
-        ctf = {}
-        ctf['title'] = data['title']
-        ctf['event_url'] = data['link']
-        ctf['start_date'] =convert_utc_to_ist( data['start_date'] )
-        ctf['finish_date'] = convert_utc_to_ist( data['finish_date'])
-        ctf['format_text'] = data['format_text']
-        ctf['organizers'] = data['organizers']
-        ctf['rating_weight'] = float(data['weight'])
-        ctf['logo_url'] =  data['logo_url']
-        past_ctfs.append(ctf)
     return current_ctfs , past_ctfs , upcoming_ctfs
 
 
@@ -83,7 +67,7 @@ def get_ctfs_feed():
 def home(request):
     if request.method == 'GET':
         faqs = faq.objects.all().order_by('questionno').values()
-        current_ctfs , past_ctfs , upcoming_ctfs = get_ctfs_feed()
+        current_ctfs , past_ctfs , upcoming_ctfs = get_ctfs_feed(1, 0 ,1)
         ctfs = current_ctfs + upcoming_ctfs
         if request.user.is_authenticated:
             return render(request,"home.html" , { 'ctfs': ctfs,'faqs':faqs})
@@ -139,7 +123,7 @@ def news(request):
 
 
 def ctfs_feed(request):
-    current_ctfs , past_ctfs , upcoming_ctfs = get_ctfs_feed()
+    current_ctfs , past_ctfs , upcoming_ctfs = get_ctfs_feed(1,1,1)
     return render(request , 'ctfs.html' , {'current_ctfs' : current_ctfs , 'past_ctfs' : past_ctfs , 'upcoming_ctfs' : upcoming_ctfs})
 
 

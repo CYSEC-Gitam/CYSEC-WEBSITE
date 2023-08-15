@@ -443,7 +443,7 @@ button{
 }
 
 .ctfs_slider{
-  display: flex;
+  display: grid;
   align-items: center;
   justify-content: center;
 }
