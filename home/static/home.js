@@ -1,4 +1,16 @@
 
+var typed = new Typed(".auto-type", {
+  strings: ["CYSEC CLUB", "CYSEC CLUB", "CYSEC CLUB"],
+  typeSpeed: 100,
+  backSpeed: 30,
+  showCursor: false,
+  loop: true,
+  showCursor: 1,
+});
+
+
+
+
 const text = document.querySelector(".sec-text");
 
 const textLoad = () => {

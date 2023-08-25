@@ -50,6 +50,10 @@ class events(models.Model):
 
     
  
+class EventRegistration(models.Model):
+    event_id = models.IntegerField(max_length=1024)
+    email = models.EmailField(max_length=1024)
+    registered_datetime = models.DateTimeField(default=timezone.now)
 
 
 class UserDetails(models.Model):

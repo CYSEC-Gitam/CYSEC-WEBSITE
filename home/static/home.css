@@ -1,167 +1,63 @@
 .container {
   display: grid;
   justify-content: center;
-
 }
 
 /* Glitch css */
 
-/* @font-face {
-  font-family: Hacked;
-  src: url(https://hackedfont.com/HACKED.ttf);
-} */
+.lines {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 3;
+  opacity: 50%;
+}
 
+.typewriter h1 {
+  color: #33f933;
+  font-size: 100px;
+  font-family: "Rubik Glitch" !important;
+  overflow: hidden;
+  text-shadow: 1px 1px 9px rgb(51, 249, 51);
+}
 
-/* .glitch-div{
-  font-family: "Poppins", sans-serif;
-} */
+/* words loop css */
 
-
-.glitch {
-  font-size: 8rem;
-  font-weight: 700;
-  text-transform: uppercase;
+.wordloop-h1 {
+  font-size: 3em;
+  color: blue;
+}
+.wordloop-h1 > .wordloop-span {
   position: relative;
-  color: white;
-  margin-top: 33vh;
-  margin-left: 25vw;
-
-  
-
-  text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75),
-    -0.025em -0.05em 0 rgba(0, 255, 0, 0.75),
-    0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
-
-  animation: glitch 500ms infinite;
+  display: inline-block;
+  color: #ff3c41;
+  height: 1.25em;
+  vertical-align: bottom;
+  overflow: hidden;
+}
+.wordloop-h1 > .wordloop-span .wordloop-span {
+  display: block;
+  animation: animateWords 5s infinite ease;
 }
 
-.glitch .glitchspan {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.glitch .glitchspan:first-child {
-  animation: glitch 650ms infinite;
-  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-  transform: translate(-0.025em, -0.0125em);
-  /* color: green; */
-  opacity: 0.8;
-}
-
-.glitch .glitchspan:last-child {
-  animation: glitch 375ms infinite;
-  clip-path: polygon(0 80%, 100% 20%, 100% 100%, 0 100%);
-  transform: translate(0.0125em, 0.025em);
-  /* color: red; */
-  opacity: 0.8;
-}
-
-@keyframes glitch {
+/* divided into as many parts as there are spans, each part decreasing the translateY by -100% */
+@keyframes animateWords {
   0% {
-    text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75),
-      -0.05em -0.025em 0 rgba(0, 255, 0, 0.75),
-      -0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+    transform: translateY(0%);
   }
-  14% {
-    text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75),
-      -0.05em -0.025em 0 rgba(0, 255, 0, 0.75),
-      -0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
-  }
-  15% {
-    text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75),
-      0.025em 0.025em 0 rgba(0, 255, 0, 0.75),
-      -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
-  }
-  49% {
-    text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75),
-      0.025em 0.025em 0 rgba(0, 255, 0, 0.75),
-      -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
+  25% {
+    transform: translateY(-100%);
   }
   50% {
-    text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75),
-      0.05em 0 0 rgba(0, 255, 0, 0.75), 0 -0.05em 0 rgba(0, 0, 255, 0.75);
+    transform: translateY(-200%);
   }
-  99% {
-    text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75),
-      0.05em 0 0 rgba(0, 255, 0, 0.75), 0 -0.05em 0 rgba(0, 0, 255, 0.75);
+  75% {
+    transform: translateY(-300%);
   }
   100% {
-    text-shadow: -0.025em 0 0 rgba(255, 0, 0, 0.75),
-      -0.025em -0.025em 0 rgba(0, 255, 0, 0.75),
-      -0.025em -0.05em 0 rgba(0, 0, 255, 0.75);
+    transform: translateY(-400%);
   }
 }
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  ::before,
-  ::after {
-    animation-delay: -1ms !important;
-    animation-duration: 1ms !important;
-    animation-iteration-count: 1 !important;
-    background-attachment: initial !important;
-    scroll-behavior: auto !important;
-    transition-duration: 0s !important;
-    transition-delay: 0s !important;
-  }
-}
-
-/* typewriter text css */
-
-.h-text {
-  padding-top: 30px;
-  padding-bottom: 70px;
-  margin-left: 27vw;
-}
-
-.h-animate .text {
-  position: relative;
-
-  color: #00c9f3;
-
-  font-size: 30px;
-
-  font-weight: 600;
-}
-
-.h-animate .text.first-text {
-  color: #fff;
-}
-
-.text.sec-text:before {
-  content: "";
-
-  position: absolute;
-
-  top: 0;
-
-  left: 0;
-
-  height: 100%;
-
-  width: 100%;
-
-  background-color: #000000;
-
-  border-left: 2px solid #00c9f3;
-
-  animation: typewrite 4s steps(12) infinite;
-}
-
-@keyframes typewrite {
-  40%,
-  60% {
-    left: calc(100% + 4px);
-  }
-
-  100% {
-    left: 0%;
-  }
-}
-
-
-
 
 
 /* cards css */
@@ -354,12 +250,9 @@
   box-shadow: 0 1px 15px rgba(1, 1, 1, 0.2);
 }
 
-
-
-
 /* faq section css */
 
-.faq{
+.faq {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -369,14 +262,13 @@
 
 .faqwrapper {
   width: 60%;
-  
 }
 
 .faqcontainer {
   background: #ffffff28;
   color: rgb(255, 255, 255);
   border-radius: 20px;
-  box-shadow: 0 5px 10px 0 rgb(0,0,0,0.25);
+  box-shadow: 0 5px 10px 0 rgb(0, 0, 0, 0.25);
   margin: 20px 0;
 }
 
@@ -413,23 +305,17 @@
   line-height: 1.5rem;
 }
 
-
-.faqhyperlink{
+.faqhyperlink {
   color: whitesmoke;
 }
 
-
-
-
-
 /* slider cards css */
 
-
 /* Google Fonts - Poppins */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 
-button{
-  background-color: #265DF2;
+button {
+  background-color: #265df2;
   border: none;
   color: white;
   padding: 15px 32px;
@@ -442,130 +328,130 @@ button{
   border-radius: 10px;
 }
 
-.ctfs_slider{
+.ctfs_slider {
   display: grid;
   align-items: center;
   justify-content: center;
 }
-.slide-container{
+.slide-container {
   max-width: 1120px;
   width: 100%;
   padding: 40px 0;
 }
-.slide-content{
+.slide-content {
   margin: 0 40px;
   overflow: hidden;
   border-radius: 25px;
 }
-.card{
+.card {
   border-radius: 25px;
-  background-color: #FFF;
+  background-color: #fff;
 }
 .image-content,
-.card-content{
+.card-content {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 10px 14px;
 }
-.image-content{
+.image-content {
   position: relative;
   row-gap: 5px;
   padding: 25px 0;
 }
-.overlay{
+.overlay {
   position: absolute;
   left: 0;
   top: 0;
   height: 100%;
   width: 100%;
-  background-color: #4070F4;
+  background-color: #4070f4;
   border-radius: 25px 25px 0 25px;
 }
 .overlay::before,
-.overlay::after{
-  content: '';
+.overlay::after {
+  content: "";
   position: absolute;
   right: 0;
   bottom: -40px;
   height: 40px;
   width: 40px;
-  background-color: #4070F4;
+  background-color: #4070f4;
 }
-.overlay::after{
+.overlay::after {
   border-radius: 0 25px 0 0;
-  background-color: #FFF;
+  background-color: #fff;
 }
-.card-image{
+.card-image {
   position: relative;
   height: 150px;
   width: 150px;
   border-radius: 50%;
-  background: #FFF;
+  background: #fff;
   padding: 3px;
 }
-.card-image .card-img{
+.card-image .card-img {
   height: 100%;
   width: 100%;
   object-fit: cover;
   border-radius: 50%;
-  border: 4px solid #4070F4;
+  border: 4px solid #4070f4;
 }
-.name{
+.name {
   font-size: 18px;
   font-weight: 500;
   color: #333;
 }
-.description{
+.description {
   font-size: 14px;
   color: #707070;
   text-align: center;
 }
-.button{
+.button {
   border: none;
   font-size: 16px;
-  color: #FFF;
+  color: #fff;
   padding: 8px 16px;
-  background-color: #4070F4;
+  background-color: #4070f4;
   border-radius: 6px;
   margin: 14px;
   cursor: pointer;
   transition: all 0.3s ease;
 }
-.button:hover{
-  background: #265DF2;
+.button:hover {
+  background: #265df2;
 }
 
-.swiper-navBtn{
-  color: #6E93f7;
+.swiper-navBtn {
+  color: #6e93f7;
   transition: color 0.3s ease;
 }
-.swiper-navBtn:hover{
-  color: #4070F4;
+.swiper-navBtn:hover {
+  color: #4070f4;
 }
 .swiper-navBtn::before,
-.swiper-navBtn::after{
+.swiper-navBtn::after {
   font-size: 38px;
 }
-.swiper-button-next{
+.swiper-button-next {
   right: 0;
 }
-.swiper-button-prev{
+.swiper-button-prev {
   left: 0;
 }
-.swiper-pagination-bullet{
-  background-color: #6E93f7;
+.swiper-pagination-bullet {
+  background-color: #6e93f7;
   opacity: 1;
 }
-.swiper-pagination-bullet-active{
-  background-color: #4070F4;
+.swiper-pagination-bullet-active {
+  background-color: #4070f4;
 }
 
 @media screen and (max-width: 768px) {
-  .slide-content{
+  .slide-content {
     margin: 0 10px;
   }
-  .swiper-navBtn{
+  .swiper-navBtn {
     display: none;
   }
 }

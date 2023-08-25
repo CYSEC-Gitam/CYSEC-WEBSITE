@@ -45,7 +45,7 @@ admin.site.register(events, EventsAdmin)
 from django.contrib import admin
 from .models import UserDetails
 
-class UserDetailsAdmin(admin.ModelAdmin):
+class UserDetailsAdmin(ImportExportModelAdmin):
     list_display = ('username', 'first_name', 'last_name', 'email', 'gender', 'study_year')
     search_fields = ('username', 'first_name', 'last_name', 'email', 'registration_no', 'institute')
     list_filter = ('gender', 'study_year')
@@ -64,4 +64,15 @@ class UserDetailsAdmin(admin.ModelAdmin):
     )
 
 admin.site.register(UserDetails, UserDetailsAdmin)
+
+
+
+from .models import EventRegistration
+
+@admin.register(EventRegistration)
+class EventRegistrationAdmin(ImportExportModelAdmin):
+    list_display = ('event_id', 'email', 'registered_datetime')
+    list_filter = ('event_id', 'registered_datetime')
+    search_fields = ('event_id', 'email')
+    date_hierarchy = 'registered_datetime'
 

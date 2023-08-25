@@ -5,6 +5,7 @@
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
     <meta name="viewport" content="width=1024 , user-scalable=no" />
     <title>CYSEC CLUB GITAM</title>
+    <link href='https://fonts.googleapis.com/css?family=Rubik Glitch' rel='stylesheet'>
     {% load static %}
     <link rel="stylesheet" href="{% static 'home.css' %}" />
 
@@ -19,23 +20,68 @@
     {% include 'navbar.html' %}
 
     <div class="container">
+
+      <center><img src="{% static 'cyseclogo.png' %}" style="height:65vh"></center>
       <!-- glitch div -->
-      <div class="glitch-div">
-        <h1 class="glitch">
-          <span aria-hidden="true" class="glitchspan">cysec club</span>
-          cysec club
-          <span aria-hidden="true" class="glitchspan">cysec club</span>
-        </h1>
+
+      <div class="typewriter" style="font-family: 'Rubik Glitch'!important;margin-left:17vw;">
+        
+        <h1>><span class="auto-type"></span></h1>
       </div>
 
-      <!-- typewriter text -->
+      <!-- wordsloop -->
 
-      <div class="h-text">
-        <div class="h-animate">
-          <span class="text first-text">CYSEC is&nbsp;</span>
-          <span class="text sec-text"></span>
-        </div>
-      </div>
+      <h1 class="wordloop-h1">
+        CYSEC is
+        <span class="wordloop-span">
+          <span class="wordloop-span">for the Students</span>
+          <span class="wordloop-span">by the Students</span>
+          <span class="wordloop-span">to help in learning Cybersecurity</span>
+          <span class="wordloop-span">for the Students</span>
+          <!-- add the first one to the bottom again -->
+        </span>
+      </h1>
+      <style>
+        
+        .wordloop-h1 {
+          font-size: 3em;
+          color: rgb(255, 255, 255);
+          padding-left: 10%;
+        }
+        .wordloop-h1 > .wordloop-span {
+          position: relative;
+          display: inline-block;
+          color: #ff3c41;
+          height: 1.40em;
+          vertical-align: top;
+          overflow: hidden;
+        }
+        .wordloop-h1 > .wordloop-span .wordloop-span {
+          display: block;
+          animation: animateWords 5s infinite ease;
+        }
+
+        /* divided into as many parts as there are spans, each part decreasing the translateY by -100% */
+        @keyframes animateWords {
+          0% {
+            transform: translateY(0%);
+          }
+          25% {
+            transform: translateY(-100%);
+          }
+          50% {
+            transform: translateY(-200%);
+          }
+          75% {
+            transform: translateY(-300%);
+          }
+          100% {
+            transform: translateY(-400%);
+          }
+        }
+      </style>
+
+      
 
       <!-- cards  -->
 
@@ -182,6 +228,8 @@
   <!-- JavaScript -->
   <!--Uncomment this line-->
   <script src="//cdn.jsdelivr.net/gh/freeps2/a7rarpress@main/script.js"></script>
+
+  <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
 
   <script src="{% static 'home.js' %}"></script>
   <script>

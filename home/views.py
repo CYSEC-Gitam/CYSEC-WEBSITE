@@ -138,10 +138,14 @@ def test(request):
     if request.method == 'GETe':
         events_list = events.objects.all().values()[0]
         print(events_list)
-        return render(request, 'test.html', {'event':events_list})
+        return render(request, 'test2.html', {'event':events_list})
     else:
-
-        return render(request, 'test2.html')
+        regno = '122010324054'
+        user = UserDetails.objects.filter(registration_no=regno).values()
+        ids = []
+        for i in user:
+            ids.append(i['email'])
+        return render(request, 'test2.html' , {'user':ids , 'reg':'jerryshravan@gmail.com'})
     
 
 

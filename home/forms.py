@@ -24,12 +24,12 @@ class UserDetailsForm(forms.ModelForm):
             'study_year': 'Study Year',
             'profile_image': 'Profile Image',
             'bio': 'Bio',
-            'instagram_link': 'Instagram Link',
-            'twitter_link': 'Twitter Link',
-            'github_link': 'GitHub Link',
-            'tryhackme_link': 'TryHackMe Link',
-            'hackthebox_link': 'Hack The Box Link',
-            'discord_link': 'Discord Link',
+            'instagram_link': 'Instagram Link (optional)',
+            'twitter_link': 'Twitter Link (optional)',
+            'github_link': 'GitHub Link (optional)',
+            'tryhackme_link': 'TryHackMe Link (optional)',
+            'hackthebox_link': 'Hack The Box Link (optional)',
+            'discord_link': 'Discord Link (optional)',
         }
 
         widgets = {
