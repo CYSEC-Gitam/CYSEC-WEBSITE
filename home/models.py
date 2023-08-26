@@ -48,12 +48,17 @@ class events(models.Model):
     zoom_link = models.URLField(null=True, blank=True)
     whatsapp_group_link = models.URLField(null=True, blank=True)
 
-    
+   
  
 class EventRegistration(models.Model):
-    event_id = models.IntegerField(max_length=1024)
+    event_id = models.IntegerField()
     email = models.EmailField(max_length=1024)
     registered_datetime = models.DateTimeField(default=timezone.now)
+    fullname = models.CharField(max_length=200)
+    registration_no = models.CharField(max_length=20)
+    study_year = models.CharField(max_length=1)
+    campus = models.CharField(max_length=100)
+    
 
 
 class UserDetails(models.Model):
@@ -78,7 +83,7 @@ class UserDetails(models.Model):
     email = models.EmailField(unique=True)
     date_of_birth = models.DateField()
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-    registration_no = models.CharField(max_length=20)
+    registration_no = models.CharField(max_length=50)
     institute = models.CharField(max_length=100)
     branch = models.CharField(max_length=100)
     campus = models.CharField(max_length=100)

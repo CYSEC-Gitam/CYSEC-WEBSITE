@@ -1,83 +1,95 @@
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>test page</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'test2.css' %}" />
-  </head>
-  <body>
-    {% if reg in user %}
-    <p>Event is present in the list.</p>
-    {% else %}
-    <p>Event is {{ user }} not present in the list.</p>
-    {% endif %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Block</title>
+    <style>
+        /* Reset some default styles for consistency */
+        body, h1, p {
+            margin: 0;
+            padding: 0;
+        }
 
-    <!-- <section>
-      <div class="two-column-wrapper">
-        <div class="text">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim
-            excepturi, sapiente natus et ipsam maxime labore sint, consequatur
-            voluptatibus deleniti necessitatibus tempora reiciendis sequi dolor
-            voluptatem doloribus, unde quas, magni?
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim
-            excepturi, sapiente natus et ipsam maxime labore sint, consequatur
-            voluptatibus deleniti necessitatibus tempora reiciendis sequi dolor
-            voluptatem doloribus, unde quas, magni?
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim
-            excepturi, sapiente natus et ipsam maxime labore sint, consequatur
-            voluptatibus deleniti necessitatibus tempora reiciendis sequi dolor
-            voluptatem doloribus, unde quas, magni?
-          </p>
-        </div>
-        <div>
-          <img src="https://unsplash.it/800?random" alt="" />
-        </div>
-      </div>
-      <div class="two-column-wrapper">
-        <div class="text">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim
-            excepturi, sapiente natus et ipsam maxime labore sint, consequatur
-            voluptatibus deleniti necessitatibus tempora reiciendis sequi dolor
-            voluptatem doloribus, unde quas, magni?
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim
-            excepturi, sapiente natus et ipsam maxime labore sint, consequatur
-            voluptatibus deleniti necessitatibus tempora reiciendis sequi dolor
-            voluptatem doloribus, unde quas, magni?
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim
-            excepturi, sapiente natus et ipsam maxime labore sint, consequatur
-            voluptatibus deleniti necessitatibus tempora reiciendis sequi dolor
-            voluptatem doloribus, unde quas, magni?
-          </p>
-        </div>
-        <div>
-          <img src="https://unsplash.it/800?random" alt="" />
-        </div>
-      </div>
-    </section> -->
+        /* event container */
+        .event-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            border: 2px solid #00FF00; /* Neon green border */
+            padding: 20px;
+        }
 
-    <h1 class="wordloop-h1">
-      Never gonna
-      <span class="wordloop-span">
-        <span class="wordloop-span">give you up</span>
-        <span class="wordloop-span">let you down</span>
-        <span class="wordloop-span">turn around</span>
-        <span class="wordloop-span">hurt you</span>
-        <span class="wordloop-span">give you up</span>
-        <!-- add the first one to the bottom again -->
-      </span>
-    </h1>
-  </body>
-  <script src="{% static 'test.js' %}"></script>
+        /* Left column */
+        .event-left-column {
+            flex: 1;
+            text-align: center;
+        }
+
+        /* Right column */
+        .event-right-column {
+            flex: 1;
+            text-align: center;
+        }
+
+        /* Image in the right column */
+        .event-image {
+            max-width: 100%;
+            height: auto;
+            vertical-align: middle;
+        }
+
+        /* Button styling */
+        .event-register-button {
+            display: block;
+            margin: 10px auto; /* Decreased margin */
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: auto; /* Set width to auto for normal button size */
+        }
+
+        .event-register-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Mobile view: right column below left column */
+        @media (max-width: 768px) {
+            .event-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .event-left-column, .event-right-column {
+                flex: auto;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="event-container">
+        <div class="event-left-column">
+            <h1>Title</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+            <div class="sub-columns">
+                <div class="sub-column">
+                    <p>Start Time: 9:00 AM</p>
+                </div>
+                <div class="sub-column">
+                    <p>End Time: 5:00 PM</p>
+                </div>
+            </div>
+            <a href="#" class="event-register-button">Register</a>
+        </div>
+        <div class="event-right-column">
+            <img src="https://cysec.gitam.edu/home/cysecserver/CYSEC-WEBSITE/static/cyseclogo.png" alt="Image" class="event-image">
+        </div>
+    </div>
+</body>
 </html>

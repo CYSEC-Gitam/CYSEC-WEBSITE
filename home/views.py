@@ -1,4 +1,4 @@
-from django.shortcuts import render , redirect
+from django.shortcuts import get_object_or_404, render , redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 import feedparser
@@ -66,13 +66,23 @@ def get_ctfs_feed(c , p , u):
 
 def home(request):
     if request.method == 'GET':
-        faqs = faq.objects.all().order_by('questionno').values()
+        current_datetime = datetime.now()
+        event = events.objects.filter(end_dateandtime__gte=current_datetime).order_by('end_dateandtime')
+        first_event = event.values().first() 
+        
         current_ctfs , past_ctfs , upcoming_ctfs = get_ctfs_feed(1, 0 ,1)
         ctfs = current_ctfs + upcoming_ctfs
+        faqs = faq.objects.all().order_by('questionno').values()
         if request.user.is_authenticated:
-            return render(request,"home.html" , { 'ctfs': ctfs,'faqs':faqs})
+            event_registrations = EventRegistration.objects.filter(email=request.user.email).values()
+            registered = [i['event_id'] for i in event_registrations] 
+            
+            if UserDetails.objects.filter(email=request.user.email).exists():
+                return render(request,"home.html" , { 'event':first_event,'ctfs': ctfs,'faqs':faqs, 'registered':registered})
+            else:
+                return redirect("logout")
         else:
-            return render(request,"home.html" ,  { 'ctfs': ctfs,'faqs':faqs})
+            return render(request,"home.html" ,  {  'event':first_event,'ctfs': ctfs,'faqs':faqs})
 
 
 @login_required       
@@ -94,7 +104,23 @@ def user_details(request):
     else:
         return redirect('home')
     
-    
+
+
+def register_event(request, event_id):
+    if request.user.is_authenticated:
+        if UserDetails.objects.filter(email=request.user.email).exists():
+            user = UserDetails.objects.get(email=request.user.email)
+            current_datetime = datetime.now()
+            fullname = user.first_name + ' ' + user.last_name 
+            EventRegistration.objects.get_or_create(event_id=event_id, email=user.email, registered_datetime = current_datetime,fullname=fullname, registration_no= user.registration_no , study_year=user.study_year,campus=user.campus)
+            messages.success(request, 'Event registration successfully.')
+            return redirect('home')
+        else:
+            return redirect('user_details')
+    else:
+        return redirect('home')
+
+  
 def news(request):
     feed = feedparser.parse("https://feeds.feedburner.com/TheHackersNews")
     entries = feed.entries

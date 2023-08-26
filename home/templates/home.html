@@ -21,6 +21,31 @@
 
     <div class="container">
 
+      {% if messages %}
+        {% for message in messages %}
+          <center>
+          <div class="alert" style="margin:10px;">
+            <span
+              class="closebtn"
+              onclick="this.parentElement.style.display='none';"
+              >&times;</span
+            >
+            <strong>{{message}}</strong>
+          </div></center>
+          <style>
+            .alert {
+              padding: 20px;
+              background-color: rgb(187, 235, 198);
+              color: black;
+              border-radius: 5px;
+              width: 300px;
+              text-align: center;
+              margin: 30px;
+            }
+          </style>
+      {% endfor %}
+      {% endif %}
+
       <center><img src="{% static 'cyseclogo.png' %}" style="height:65vh"></center>
       <!-- glitch div -->
 
@@ -122,8 +147,51 @@
       </div>
 
       <div class="whatsnew_div">
-        <h1 style="text-align: center; color: aliceblue">What's new</h1>
-        <h2 style="text-align: center; color: aliceblue">CTF's for you</h2>
+        <h1 style="text-align: center; color: aliceblue;font-size: 40px">What's new</h1>
+        <br>
+        {% if event %}
+        <!-- events -->
+
+        <div class="event-container">
+          <div class="event-left-column">
+              <h1>{{ event.title }}</h1>
+              <br>
+              <div class="event-description" style="text-align: justify;text-justify: inter-word;">
+                <p>{{ event.description}}</p>
+              </div>
+              <br>
+              <div class="sub-columns">
+                  <div class="sub-column">
+                      <p>Venue: {{ event.venue }}</p>
+                  </div>
+                  <div class="sub-column">
+                    <p>Mode: {{ event.mode }}</p>
+                  </div>
+                  <div class="sub-column">
+                      <p>Start Time: {{ event.start_dateandtime }}</p>
+                  </div>
+                  <div class="sub-column">
+                      <p>End Time: {{ event.end_dateandtime }}</p>
+                  </div>
+              </div>
+              {% if user.is_authenticated %}
+                {% if event.event_id in registered %}
+                <a href="" class="event-register-button" style="background-color: #0056b3;">Already registared for the event</a>
+                {% else %}
+                <a href="{% url 'register_event' event.event_id %}" class="event-register-button">Register for the event</a>
+                {% endif %}
+              {% else %}
+                <a href="{% url 'social:begin' 'google-oauth2' %}" class="event-register-button">Register for the event</a>
+              {% endif %}
+          </div>
+          <div class="event-right-column">
+              <img src="https://cysec.gitam.edu/home/cysecserver/CYSEC-WEBSITE/media/{{ event.imageurl}}" alt="Image" class="event-image">
+          </div>
+      </div>
+
+      {% endif %}
+
+        <h1 style="text-align: center; color: aliceblue; font-size: 40px;">CTF's for you</h2>
         <div class="ctfs_slider">
           <div class="slide-container swiper">
             <div class="slide-content">
