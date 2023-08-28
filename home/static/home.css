@@ -15,8 +15,7 @@
 
 .typewriter h1 {
   color: #33f933;
-  font-size: 100px;
-  font-family: "Rubik Glitch" !important;
+  font-size: 150px;
   overflow: hidden;
   text-shadow: 1px 1px 9px rgb(51, 249, 51);
 }
@@ -80,6 +79,7 @@
 .event-left-column {
   flex: 1;
   text-align: center;
+  font-size: 1.1em;
 }
 
 /* Right column */
@@ -115,15 +115,17 @@
 }
 
 /* Mobile view: right column below left column */
-@media (max-width: 768px) {
+@media screen and (max-width: 800px) {
   .event-container {
       flex-direction: column;
       align-items: center;
+      
   }
 
   .event-left-column, .event-right-column {
       flex: auto;
       width: 100%;
+      font-size: 0.5em;
   }
 }
 
@@ -148,7 +150,10 @@
   align-items: center;
   flex-wrap: wrap;
   padding: 40px 0px 100px 0;
+  text-align: justify;
+  text-justify: inter-word;
 }
+
 
 .cardcontainer .cardbox {
   position: relative;

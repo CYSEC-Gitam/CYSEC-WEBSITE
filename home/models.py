@@ -56,7 +56,7 @@ class EventRegistration(models.Model):
     registered_datetime = models.DateTimeField(default=timezone.now)
     fullname = models.CharField(max_length=200)
     registration_no = models.CharField(max_length=20)
-    study_year = models.CharField(max_length=1)
+    study_year = models.CharField(max_length=3)
     campus = models.CharField(max_length=100)
     
 

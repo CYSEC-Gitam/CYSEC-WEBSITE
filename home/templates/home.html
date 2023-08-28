@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
-    <meta name="viewport" content="width=1024 , user-scalable=no" />
+    <meta name="viewport" content="width=1280, user-scalable=yes" />
     <title>CYSEC CLUB GITAM</title>
-    <link href='https://fonts.googleapis.com/css?family=Rubik Glitch' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=VT323' rel='stylesheet'>
     {% load static %}
     <link rel="stylesheet" href="{% static 'home.css' %}" />
 
@@ -46,10 +46,10 @@
       {% endfor %}
       {% endif %}
 
-      <center><img src="{% static 'cyseclogo.png' %}" style="height:65vh"></center>
+      <center><img src="{% static 'cyseclogo.png' %}" style="height:450px"></center>
       <!-- glitch div -->
 
-      <div class="typewriter" style="font-family: 'Rubik Glitch'!important;margin-left:17vw;">
+      <div class="typewriter" style="font-family: 'VT323';margin-left:20vw;">
         
         <h1>><span class="auto-type"></span></h1>
       </div>
@@ -61,7 +61,7 @@
         <span class="wordloop-span">
           <span class="wordloop-span">for the Students</span>
           <span class="wordloop-span">by the Students</span>
-          <span class="wordloop-span">to help in learning Cybersecurity</span>
+          <span class="wordloop-span">to learn Cybersecurity</span>
           <span class="wordloop-span">for the Students</span>
           <!-- add the first one to the bottom again -->
         </span>
@@ -71,7 +71,7 @@
         .wordloop-h1 {
           font-size: 3em;
           color: rgb(255, 255, 255);
-          padding-left: 10%;
+          padding-left: 20%;
         }
         .wordloop-h1 > .wordloop-span {
           position: relative;
@@ -115,9 +115,8 @@
           <span class="cardspan"></span>
           <div class="cardcontent">
             <h2>What is CYSEC?</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            <p >
+              CYSEC at GITAM University spans Vizag, Hyderabad, and Bangalore campuses. We educate about cybersecurity, raise awareness of cyber threats, and empower students to protect our digital future.
             </p>
             <a href="#">Read More</a>
           </div>
@@ -127,8 +126,7 @@
           <div class="cardcontent">
             <h2>Our Vision</h2>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              At CYSEC, we aim to unite GITAM University students across campuses, educating them about cybersecurity, raising awareness about cyber threats, and fostering expertise to ensure a safer digital world.
             </p>
             <a href="#">Read More</a>
           </div>
@@ -138,8 +136,7 @@
           <div class="cardcontent">
             <h2>Our Mission</h2>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              At CYSEC, the GITAM University student club, our mission is to empower students with cybersecurity knowledge, raise awareness about cyber threats, and promote secure digital navigation
             </p>
             <a href="#">Read More</a>
           </div>
@@ -160,7 +157,7 @@
                 <p>{{ event.description}}</p>
               </div>
               <br>
-              <div class="sub-columns">
+              <div class="sub-columns" >
                   <div class="sub-column">
                       <p>Venue: {{ event.venue }}</p>
                   </div>
@@ -185,7 +182,8 @@
               {% endif %}
           </div>
           <div class="event-right-column">
-              <img src="https://cysec.gitam.edu/home/cysecserver/CYSEC-WEBSITE/media/{{ event.imageurl}}" alt="Image" class="event-image">
+              <!-- <img src="https://cysec.gitam.edu/home/cysecserver/CYSEC-WEBSITE/media/{{ event.imageurl}}" alt="Image" class="event-image"> -->
+              <img src="https://cysec.gitam.edu/home/cysecserver/CYSEC-WEBSITE/media/events/1_A_Tweak_into_Cyber_Security_20230826_130903.jpeg" alt="Image" class="event-image">
           </div>
       </div>
 
