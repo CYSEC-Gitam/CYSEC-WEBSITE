@@ -24,10 +24,10 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include("dev.urls")),
+    path('dev/',include("dev.urls")),
     path('logout/', auth_views.LogoutView.as_view(),name='logout'),
     path('auth/', include('social_django.urls', namespace='social')),
-    path('home/',include("home.urls")),
+    path('',include("home.urls")),
 ]
 
 from django.conf import settings
