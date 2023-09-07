@@ -32,7 +32,7 @@ class EventCertificate(models.Model):
 
 
 class ParticipantCertificate(models.Model):
-	event = models.ForeignKey(EventCertificate, on_delete=models.CASCADE)
+	event = models.CharField(max_length=250)
 	eventid = models.CharField(max_length=250)
 	email = models.EmailField(max_length=250)
 	full_name = models.CharField(max_length=200,null=True, blank=True)

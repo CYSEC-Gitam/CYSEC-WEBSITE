@@ -142,7 +142,7 @@ def track(request, id, slug):
 					mail.attach_file(s_name+'.pdf')
 					mail.send()
 					ParticipantCertificate(
-		 					event=event, 
+		 					event=event.id, 
 			  				eventid=event.event_id,  
 				  			email=df.loc[i,event.email_column], 
 							certificatelink= url,
@@ -154,7 +154,7 @@ def track(request, id, slug):
 					os.remove(s_name+".pptx")
 				except:
 					ParticipantCertificate(
-		 					event=event, 
+		 					event=event.id, 
 			  				eventid=event.event_id,  
 				  			email=df.loc[i,event.email_column], 
 							certificatelink= url,
