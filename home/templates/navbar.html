@@ -154,6 +154,20 @@
             <span>Profile</span>
           </a>
         </li>
+        {% if user.is_staff %}
+        <li>
+          <a href="#">
+            <i class = "material-icons">card_membership</i>
+            <span>Certificate</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class = "material-icons">supervisor_account</i>
+            <span>Admin</span>
+          </a>
+        </li>
+        {% endif %}
         <li>
           <a href="{% url 'logout' %}">
             <i class = "material-icons">logout</i>

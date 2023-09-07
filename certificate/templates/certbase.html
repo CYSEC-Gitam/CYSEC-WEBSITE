@@ -35,7 +35,7 @@
 
   <ul class="nav flex-column bg-dark mb-0">
     <li class="nav-item">
-      <a href="{% url 'home' %}" class="nav-link text-dark font-italic bg-secondary">
+      <a href="{% url 'home' %}" class="nav-link text-light font-italic">
                 <i class="fa fa-home mr-3 text-info fa-fw"></i>
                 Home
             </a>
@@ -56,13 +56,6 @@
             </a>
     </li>
     
-    {% if not request.user.is_authenticated %}
-
-  <li class="nav-item">
-    <a href="{% url 'social:begin' 'google-oauth2' %}" class="nav-link text-light font-italic"> <i class="fa fa-sign-in mr-3 text-info fa-fw"></i>Login with Google</a>
-    </li>
-
-    {% endif %}
     
   </ul>
 
