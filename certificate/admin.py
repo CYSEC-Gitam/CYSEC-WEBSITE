@@ -20,5 +20,29 @@ class ParticipantCertificateAdmin(ImportExportModelAdmin):
     list_display = ('event', 'email', 'full_name', 'status')
     list_filter = ('event', 'status')
     search_fields = ('email', 'full_name', 'eventid', 'reg_no')
-    list_per_page = 20  # Number of items displayed per page in the admin list view
+    list_per_page = 100  # Number of items displayed per page in the admin list view
+
+
+
+@admin.register(EventCertificate)
+class EventCertificateAdmin(ImportExportModelAdmin):
+    list_display = ('id','event_name', 'date', 'user', 'event_id', 'slug')
+    search_fields = ('event_name', 'user')
+    # prepopulated_fields = {'slug': ('event_name',)}
+    # readonly_fields = ('slug', 'date')
+
+    fieldsets = (
+        ('Event Information', {
+            'fields': ('event_name', 'event_id','slug')
+        }),
+        ('User Information', {
+            'fields': ('user', 'email_column')
+        }),
+        ('Email Configuration', {
+            'fields': ('subject', 'message')
+        }),
+        ('Files', {
+            'fields': ('data_file', 'template')
+        }),
+    )
 
