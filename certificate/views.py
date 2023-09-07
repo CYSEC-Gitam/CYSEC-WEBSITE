@@ -58,7 +58,7 @@ def track(request, id, slug):
 			return render(request, 'cert_track.html', {
 				'event_name': event.event_name,
 				'event_date': event.date,
-				'participat_details': ParticipantCertificate.objects.filter(event=event)
+				'participat_details': ParticipantCertificate.objects.filter(event=event.id)
 				})
    
 		prs = Presentation(event.template)
