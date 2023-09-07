@@ -77,6 +77,12 @@ class UserDetails(models.Model):
         ('6', 'sixth Year'),
     )
     
+    CAMPUS_CHOICES = (
+        ('VZG', 'VIZAG'),
+        ('HYD' , 'HYDERABAD'),
+        ('BLR' , 'BANGALORE'),
+    )
+    
     username = models.CharField(max_length=50, unique=True)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
@@ -86,7 +92,7 @@ class UserDetails(models.Model):
     registration_no = models.CharField(max_length=50)
     institute = models.CharField(max_length=100)
     branch = models.CharField(max_length=100)
-    campus = models.CharField(max_length=100)
+    campus = models.CharField(max_length=30 , choices=CAMPUS_CHOICES)
     mobile = models.CharField(max_length=15) 
     study_year = models.CharField(max_length=1, choices=STUDY_YEAR_CHOICES)
     profile_image = models.ImageField(upload_to=generate_profile_image_filename, blank=True, null=True , default="https://img.freepik.com/premium-vector/anonymous-user-circle-icon-vector-illustration-flat-style-with-long-shadow_520826-1931.jpg?size=626&ext=jpg")

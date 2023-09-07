@@ -28,6 +28,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(),name='logout'),
     path('auth/', include('social_django.urls', namespace='social')),
     path('',include("home.urls")),
+    path('certificate/',include("certificate.urls")),
 ]
 
 from django.conf import settings

@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verified Certificate</title>
+    <style>
+        /* Reset some default styles */
+        html {
+            height:100%
+        }
+        body{
+            margin: 0;
+            padding: 0;
+            background: #000000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        /* Certificate container */
+        .certificate {
+            text-align: center;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 2%;
+            margin-left: 5%;
+            margin-right: 5%;
+            margin-bottom: 2%;
+        }
+
+        /* Certificate image */
+        .certificate img {
+            max-width: 90%;
+            max-height: 70vh;
+        }
+
+        /* Download button */
+        .download-button {
+            margin-top: 20px;
+        }
+
+        /* Style the button as needed */
+        .download-button a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .download-button a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="certificate">
+        <!-- <h1>Certificate Verified</h1> -->
+        <img src="{% static 'img/stamp.png' %}" alt="CYSEC" width="125">
+        <br>
+        <img src="https://docs.google.com/presentation/d/{{ certid }}/export/jpeg" alt="Certificate Image">
+        <div class="download-button">
+            <a href="https://docs.google.com/presentation/d/{{ certid }}/export/pdf" download>Download Certificate</a>
+        </div>
+    </div>
+    
+    <script
+    type="text/javascript"
+    color="0,255,0"
+    pointColor="0,255,0"
+    opacity="0.9"
+    zIndex="-2"
+    count="250"
+    src="{% static 'bg.js' %}"
+></script>
+</body>
+</html>
+

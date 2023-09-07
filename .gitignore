@@ -18,3 +18,7 @@ __pycache__/
 
 
 migrations
+
+credentials.json
+
+token.json

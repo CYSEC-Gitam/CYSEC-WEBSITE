@@ -22,7 +22,7 @@ class UserDetailsForm(forms.ModelForm):
             'campus': 'Campus',
             'mobile': 'Mobile Number',
             'study_year': 'Study Year',
-            'profile_image': 'Profile Image',
+            'profile_image': 'Profile Image (size less than 1Mb & optional)',
             'bio': 'Bio (optional)',
             'instagram_link': 'Instagram Link (optional)',
             'linkedin_link': 'Linkedin Link (optional)',
