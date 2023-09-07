@@ -190,12 +190,12 @@ def view_certificate_status(request):
  
  
  
-def delete_event(request, id, slug):
-	if request.user.is_staff and CertificateManager.objects.filter(email=request.user.email).exists():
-		event = EventCertificate.objects.filter(slug=slug, id=id).first()
-		if event.user == request.user.email:
-			event.delete()
-		return redirect('view_certificate_status')
-	else:
-		messages.success(request, 'Your are not Authorised')
-		return redirect('home')
+# def delete_event(request, id, slug):
+# 	if request.user.is_staff and CertificateManager.objects.filter(email=request.user.email).exists():
+# 		event = EventCertificate.objects.filter(slug=slug, id=id).first()
+# 		if event.user == request.user.email:
+# 			event.delete()
+# 		return redirect('view_certificate_status')
+# 	else:
+# 		messages.success(request, 'Your are not Authorised')
+# 		return redirect('home')
