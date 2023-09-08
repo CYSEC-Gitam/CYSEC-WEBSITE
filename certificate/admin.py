@@ -17,7 +17,7 @@ class CertificateManagerAdmin(admin.ModelAdmin):
 
 @admin.register(ParticipantCertificate)   
 class ParticipantCertificateAdmin(ImportExportModelAdmin):
-    list_display = ('event', 'email', 'full_name', 'status')
+    list_display = ('id','event','eventid', 'email', 'full_name', 'status')
     list_filter = ('event', 'status')
     search_fields = ('email', 'full_name', 'eventid', 'reg_no')
     list_per_page = 100  # Number of items displayed per page in the admin list view

@@ -136,7 +136,7 @@ def track(request, id, slug):
 
 				try:
 					mail = EmailMessage(subject,
-						f"Hello, {s_name} \n{mess}",
+						f"Hello, \n{mess}",
 						settings.EMAIL_HOST_USER,
 						[df.loc[i,event.email_column]])
 					mail.attach_file(s_name+'.pdf')
