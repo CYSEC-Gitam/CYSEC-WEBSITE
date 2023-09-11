@@ -1,4 +1,4 @@
-.container {
+.maincontainer {
   display: grid;
   justify-content: center;
 }
@@ -417,7 +417,10 @@ button {
   display: grid;
   align-items: center;
   justify-content: center;
+  
 }
+
+
 .slide-container {
   max-width: 1120px;
   width: 100%;

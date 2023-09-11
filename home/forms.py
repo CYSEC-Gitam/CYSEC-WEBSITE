@@ -4,7 +4,20 @@ from .models import UserDetails
 class UserDetailsForm(forms.ModelForm):
     class Meta:
         model = UserDetails
-        fields = '__all__'
+        fields = [
+            'username',
+            'first_name',
+            'last_name',
+            'email',
+            'date_of_birth',
+            'gender',
+            'registration_no', 
+            'institute',
+            'branch',
+            'campus',
+            'mobile',
+            'study_year',
+        ]
 
 
 

@@ -106,11 +106,11 @@ form .button input{
   font-size:18px;
   font-weight: 500;
   letter-spacing: 1px;
-  background: linear-gradient(135deg , #000000 , #FFFFFF);
+  background: #1a76ff;
 }
 
 form .button input:hover{
-  background: linear-gradient(-135deg , #000000 , #FFFFFF);
+  background: #0058dd;
 }
 
 @media (max-width: 584px){

@@ -19,7 +19,7 @@
   <body>
     {% include 'navbar.html' %}
 
-    <div class="container">
+    <div class="maincontainer">
 
       {% if messages %}
         {% for message in messages %}
@@ -146,8 +146,9 @@
       <div class="whatsnew_div">
         <h1 style="text-align: center; color: aliceblue;font-size: 40px">What's new</h1>
         <br>
+
+
         {% if event %}
-        <!-- events -->
 
         <div class="event-container">
           <div class="event-left-column">
@@ -190,8 +191,8 @@
       {% endif %}
 
         <h1 style="text-align: center; color: aliceblue; font-size: 40px;">CTF's for you</h2>
-        <div class="ctfs_slider">
-          <div class="slide-container swiper">
+        <div class="ctfs_slider" style="margin: 70px;">
+          <div class="slide-container swiper" style="z-index:-1">
             <div class="slide-content">
               <div class="card-wrapper swiper-wrapper">
                 {% for ctf in ctfs %}
