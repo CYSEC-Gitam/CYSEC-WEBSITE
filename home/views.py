@@ -100,11 +100,15 @@ def user_details(request):
                 initial_data = {'email': request.user.email}
                 form = UserDetailsForm(initial=initial_data)
                 
-            return render(request, 'user_details.html', {'form': form})
+            return render(request, 'user_details2.html', {'form': form})
     else:
         return redirect('home')
     
-
+    
+    
+def login(request):
+    messages.success(request, 'Please Login to continue')
+    return redirect('home')
 
 def register_event(request, event_id):
     if request.user.is_authenticated:

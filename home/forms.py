@@ -46,7 +46,16 @@ class UserDetailsForm(forms.ModelForm):
         }
 
         widgets = {
-            'date_of_birth': forms.DateInput(attrs={'type': 'date'}),
+            'date_of_birth': forms.DateInput(attrs={'type': 'date' , 'placeholder': 'date of birth'}),
+            'username': forms.TextInput(attrs={'placeholder': 'Username'}),
+            'first_name': forms.TextInput(attrs={'placeholder': 'First Name'}),
+            'last_name': forms.TextInput(attrs={'placeholder': 'Last Name'}),
+            'email': forms.EmailInput(attrs={'placeholder': 'Email Address'}),
+            'registration_no': forms.TextInput(attrs={'placeholder': 'Registration Number'}),
+            'institute': forms.TextInput(attrs={'placeholder': 'Institute (eg: GIT , GIS)'}),
+            'branch': forms.TextInput(attrs={'placeholder': 'Branch'}),
+            'mobile': forms.TextInput(attrs={'placeholder': 'Mobile Number'}),
+            'study_year': forms.Select(attrs={'placeholder': 'Study Year'}),
         }
 
         error_messages = {

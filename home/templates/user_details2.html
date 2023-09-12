@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CYSEC | User Details</title>
+</head>
+
+<body>
+
+  <div class="login-box">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'user_details2.css' %}" />
+    <h2>User Details
+    </h2>
+    {% for field in form %} 
+        {% if field.errors %}
+        <br>
+          <div class="alert" style="margin:10px;">
+            <span
+              class="closebtn"
+              onclick="this.parentElement.style.display='none';"
+              >&times;</span
+            >
+            <strong>error!</strong> {{ field.errors.0 }}
+          </div><br>
+        {% endif %}
+    {% endfor %}
+    <form class="user-details" method="post" enctype="multipart/form-data" validate>
+    {% csrf_token %}
+      <div class="user-box">
+        {{ form.username }}
+
+      </div>
+      <div class="user-box">
+        {{ form.first_name }}
+
+      </div>
+      <div class="user-box">
+        {{ form.last_name }}
+
+      </div>
+      <div class="user-box">
+          {{ form.email }}
+      </div>
+      <div class="user-box"><br>
+        <label>Date of Birth</label>
+        {{ form.date_of_birth }}
+      </div>
+      <div class="user-box">
+        <label>Gender</label><br><br>
+        {{ form.gender }}
+        <br><br>
+      </div>
+      <div class="user-box">
+        {{ form.registration_no }}
+      </div>
+      <div class="user-box">
+        {{ form.institute }}
+      </div>
+      <div class="user-box">
+        {{ form.branch }}
+      </div>
+      <div class="user-box">
+        <label>Campus</label><br><br>
+        {{ form.campus }}<br><br>
+      </div>
+      <div class="user-box">
+        {{ form.mobile }}
+      </div>
+      <div class="user-box">
+        <label>Year of study</label><br><br>
+        {{ form.study_year }}<br><br>
+      </div>
+
+      <div class="submit">
+        <button type="submit" value="Submit" class="btn btn-outline-primary">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <b>SUBMIT</b>
+        </button>
+      </div>
+    </form>
+  </div>
+</body>
+
+</html>

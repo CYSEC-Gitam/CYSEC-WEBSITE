@@ -73,6 +73,9 @@ form .user-details .input-box  label{
   border-radius: 5px;
 }
 
+label{
+  font-weight:800;
+}
 
 textarea{
   max-width: 300px;

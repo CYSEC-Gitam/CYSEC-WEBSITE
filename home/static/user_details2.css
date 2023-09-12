@@ -1,0 +1,95 @@
+html {
+    height: 100%;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: linear-gradient(#141e30, #243b55);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  body::-webkit-scrollbar{
+    display: none;
+  }
+  
+  
+  .login-box {
+    width: 30%;
+    padding: 40px;
+    background: rgba(0, 0, 0, .5);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+    border-radius: 10px;
+    color: white;
+  }
+  
+  .user-details {
+    max-height: 60vh;
+    overflow-y: scroll;
+    -ms-overflow-style: none; /* for Internet Explorer, Edge */
+    scrollbar-width: none; /* for Firefox */
+  }
+  
+  .user-details::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .login-box .user-box input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 5px;
+    border: none;
+    border-bottom: 1px solid #706f6f;
+    outline: none;
+    background: transparent;
+  }
+  
+  /* For labels */
+  .login-box .user-box {
+    position: relative;
+  }
+  
+  .login-box .user-box label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: gray;
+    pointer-events: none;
+    transition: .5s;
+  }
+  
+  select {
+    background: transparent;
+    color: gray;
+    border-bottom: 1px solid gray;
+  }
+  
+  .submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .submit button{
+    color: white;
+    text-decoration: none;
+    border: 1px solid gray;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: rgba(14, 14, 14, 0.562);
+  }
+  
+  @media(max-width:500px) {
+    .login-box {
+      width: 70%;
+    }
+  }
