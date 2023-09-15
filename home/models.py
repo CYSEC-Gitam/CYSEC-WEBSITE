@@ -39,7 +39,7 @@ def generate_profile_image_filename(instance, filename):
 class events(models.Model):
     event_id = models.IntegerField(primary_key=True)
     title = models.TextField(max_length=1024)
-    description = models.TextField(max_length=2048)
+    description = models.TextField(max_length=2048 , blank=True)
     venue = models.TextField(max_length=1024)
     mode = models.TextField(max_length=1024)
     start_dateandtime = models.DateTimeField(null=True, blank=True)
