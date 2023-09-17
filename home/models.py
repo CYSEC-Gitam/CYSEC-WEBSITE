@@ -58,7 +58,7 @@ class EventRegistration(models.Model):
     registration_no = models.CharField(max_length=20)
     study_year = models.CharField(max_length=3)
     campus = models.CharField(max_length=100)
-    # user_event_id = models.CharField(max_length=200, blank=True , null=True)
+    user_event_id = models.CharField(max_length=200, blank=True , null=True)
     
 
 
@@ -107,3 +107,13 @@ class UserDetails(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
+
+
+
+
+# class eventqrs(models.Model):
+#     event_id = models.IntegerField()
+#     email = models.EmailField(max_length=1024)
+#     registered_datetime = models.DateTimeField(default=timezone.now)
+#     user_event_id = models.CharField(max_length=200, blank=True , null=True)
