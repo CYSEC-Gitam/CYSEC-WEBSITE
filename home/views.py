@@ -185,7 +185,7 @@ def test(request):
 def qrfill():
   for i in EventRegistration.objects.all():
     if (EventRegistration.objects.filter(email=i.email).exists()):
-      user = EventRegistration.objects.get(email=i.email)
+      user = EventRegistration.objects.get(email=i.email).first()
       user_event_id = hashlib.md5((str(user.email) + str(user.registered_datetime) + str(user.event_id)).encode())
       user.user_event_id = user_event_id.hexdigest()
       user.save()
