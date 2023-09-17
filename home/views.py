@@ -193,8 +193,29 @@ def qrfill():
     else:
       print(f"{i.email} : incomplete")
     
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import get_template
+from django.conf import settings
 
 
+def send_pass_mail(name, email, qrhash):
+  subject, from_email, to = f'{name},Your Ticket For CYSEC Moive Night', settings.EMAIL_HOST_USER, email
+  html_content1 = get_template('event_confirmation_mail.html').render({'qrhash': qrhash})
+  msg = EmailMultiAlternatives(subject, html_content1, from_email, [to])
+  msg.content_subtype = "html"
+  msg.send() 
+
+
+def sendmails(eventid):
+  for i in EventRegistration.objects.all():
+    if (EventRegistration.objects.filter(email=i.email,event_id=eventid).exists()):
+        user = EventRegistration.objects.get(email=i.email ,event_id=eventid)
+        userd = UserDetails.objects.get(email=user.email)
+        name = user.first_name + ' ' + user.last_name 
+        qrhash = user.user_event_id
+        mailid = user.email
+        send_pass_mail(name,mailid,qrhash)
+        print(user.email)
 
 
         
