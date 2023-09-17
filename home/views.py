@@ -68,7 +68,7 @@ def home(request):
     if request.method == 'GET':
         current_datetime = datetime.now()
         event = events.objects.filter(end_dateandtime__gte=current_datetime).order_by('end_dateandtime')
-        first_event = event.values().first() 
+        first_event = event.values()
         
         current_ctfs , past_ctfs , upcoming_ctfs = get_ctfs_feed(1, 0 ,1)
         ctfs = current_ctfs + upcoming_ctfs
@@ -78,11 +78,11 @@ def home(request):
             registered = [i['event_id'] for i in event_registrations] 
             
             if UserDetails.objects.filter(email=request.user.email).exists():
-                return render(request,"home.html" , { 'event':first_event,'ctfs': ctfs,'faqs':faqs, 'registered':registered})
+                return render(request,"home.html" , { 'events':first_event,'ctfs': ctfs,'faqs':faqs, 'registered':registered})
             else:
                 return redirect("logout")
         else:
-            return render(request,"home.html" ,  {  'event':first_event,'ctfs': ctfs,'faqs':faqs})
+            return render(request,"home.html" ,  {  'events':first_event,'ctfs': ctfs,'faqs':faqs})
 
 
 @login_required       
@@ -120,7 +120,8 @@ def register_event(request, event_id):
             user_event_id =  hashlib.md5(( str(event_id) + str(request.user.email) + str(fullname) + str(current_datetime)).encode())
             user_event_id = user_event_id.hexdigest()
             
-            send_pass_mail(fullname, request.user.email, user_event_id)
+            if str(event_id) == "230920":
+                send_pass_mail(fullname, request.user.email, user_event_id)
             
             
             EventRegistration.objects.get_or_create(event_id=event_id, email=user.email, registered_datetime = current_datetime,fullname=fullname, registration_no= user.registration_no , study_year=user.study_year,campus=user.campus, user_event_id=user_event_id)

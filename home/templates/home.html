@@ -148,10 +148,10 @@
         <br>
 
 
-        {% if event %}
-
+        {% if events %}
+        {% for event in events %}
         <div class="event-container">
-          <div class="event-left-column">
+          <div class="event-left-column" style="margin:auto">
               <h1>{{ event.title }}</h1>
               <br>
               <div class="event-description" style="text-align: justify;text-justify: inter-word;">
@@ -181,13 +181,17 @@
               {% else %}
                 <a href="{% url 'social:begin' 'google-oauth2' %}" class="event-register-button">Register for the event</a>
               {% endif %}
+              <br>
+              {% if event.whatsapp_group_link %}
+              <a href="event.whatsapp_group_link" class="event-register-button" style="background-color: #25d366;color:#000000"><strong>Join Whatsapp Group</strong></a>
+              {% endif %}
           </div>
           <div class="event-right-column">
               <img src="https://cysec.gitam.edu/home/cysecserver/CYSEC-WEBSITE/media/{{ event.imageurl}}" alt="Image" class="event-image">
               <!-- <img src="https://cysec.gitam.edu/home/cysecserver/CYSEC-WEBSITE/media/events/1_A_Tweak_into_Cyber_Security_20230826_130903.jpeg" alt="Image" class="event-image"> -->
           </div>
       </div>
-
+      {% endfor %}
       {% endif %}
 
         <h1 style="text-align: center; color: aliceblue; font-size: 40px;">CTF's for you</h2>
