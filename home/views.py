@@ -214,11 +214,13 @@ def sendmails(eventid):
     if (EventRegistration.objects.filter(email=i.email,event_id=eventid).exists()):
         user = EventRegistration.objects.get(email=i.email ,event_id=eventid)
         userd = UserDetails.objects.get(email=user.email)
-        name = user.first_name + ' ' + user.last_name 
+        name = userd.first_name + ' ' + userd.last_name 
         qrhash = user.user_event_id
         mailid = user.email
         send_pass_mail(name,mailid,qrhash)
-        print(user.email)
+        print(f"{user.email} sent mail")
+    else:
+        print(f"{i.email} is not a member")
 
 
         
