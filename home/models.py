@@ -58,6 +58,7 @@ class EventRegistration(models.Model):
     registration_no = models.CharField(max_length=20)
     study_year = models.CharField(max_length=3)
     campus = models.CharField(max_length=100)
+    user_event_id = models.CharField(max_length=200, blank=True , null=True)
     
 
 

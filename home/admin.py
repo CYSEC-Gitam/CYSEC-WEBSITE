@@ -70,11 +70,11 @@ admin.site.register(UserDetails, UserDetailsAdmin)
 from .models import EventRegistration
 
 
-@admin.register(EventRegistration)
-class EventRegistrationAdmin(ImportExportModelAdmin):
-    list_display = ('event_id', 'email', 'registered_datetime', 'fullname', 'registration_no', 'study_year', 'campus')
-    list_filter = ('event_id', 'registered_datetime','study_year', 'campus')
-    search_fields = ('event_id','email', 'fullname', 'registration_no')
-    date_hierarchy = 'registered_datetime'
-    list_per_page = 20
+# @admin.register(EventRegistration)
+# class EventRegistrationAdmin(ImportExportModelAdmin):
+#     list_display = ('event_id', 'email', 'registered_datetime', 'fullname', 'registration_no', 'study_year', 'campus' , 'user_event_id')
+#     list_filter = ('event_id', 'registered_datetime','study_year', 'campus')
+#     search_fields = ('event_id','email', 'fullname', 'registration_no')
+#     date_hierarchy = 'registered_datetime'
+#     list_per_page = 50
 

@@ -8,7 +8,7 @@ from .models import *
 from datetime import datetime
 import pytz
 from django.contrib.auth.decorators import login_required
-
+import hashlib
 
 
 #### this function is for converting utc time to ctf time of ctfs from ctftime.org 
@@ -116,7 +116,11 @@ def register_event(request, event_id):
             user = UserDetails.objects.get(email=request.user.email)
             current_datetime = datetime.now()
             fullname = user.first_name + ' ' + user.last_name 
-            EventRegistration.objects.get_or_create(event_id=event_id, email=user.email, registered_datetime = current_datetime,fullname=fullname, registration_no= user.registration_no , study_year=user.study_year,campus=user.campus)
+            
+            user_event_id =  hashlib.md5(( str(event_id) + str(request.user.email) + str(fullname) + str(current_datetime)).encode())
+            user_event_id = user_event_id.hexdigest()
+            
+            EventRegistration.objects.get_or_create(event_id=event_id, email=user.email, registered_datetime = current_datetime,fullname=fullname, registration_no= user.registration_no , study_year=user.study_year,campus=user.campus , user_event_id =user_event_id)
             messages.success(request, 'Event registration successfully.')
             return redirect('home')
         else:
@@ -161,7 +165,7 @@ def ctfs_feed(request):
 
 
 
-
+#below functions are added for testing purposes these functions are not part the website
 
 
 def test(request):
@@ -176,6 +180,18 @@ def test(request):
         for i in user:
             ids.append(i['email'])
         return render(request, 'test2.html' , {'user':ids , 'reg':'jerryshravan@gmail.com'})
+    
+    
+def qrfill():
+  for i in EventRegistration.objects.all():
+    if (EventRegistration.objects.filter(email=i.email).exists()):
+      user = EventRegistration.objects.get(email=i.email)
+      user_event_id = hashlib.md5((str(user.email) + str(user.registered_datetime) + str(user.event_id)).encode())
+      user.user_event_id = user_event_id.hexdigest()
+      user.save()
+      print(f"{i.email} : done")
+    else:
+      print(f"{i.email} : incomplete")
     
 
 
