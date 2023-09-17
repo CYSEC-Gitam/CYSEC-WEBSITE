@@ -120,6 +120,9 @@ def register_event(request, event_id):
             user_event_id =  hashlib.md5(( str(event_id) + str(request.user.email) + str(fullname) + str(current_datetime)).encode())
             user_event_id = user_event_id.hexdigest()
             
+            send_pass_mail(fullname, request.user.email, user_event_id)
+            
+            
             EventRegistration.objects.get_or_create(event_id=event_id, email=user.email, registered_datetime = current_datetime,fullname=fullname, registration_no= user.registration_no , study_year=user.study_year,campus=user.campus, user_event_id=user_event_id)
             messages.success(request, 'Event registration successfully.')
             return redirect('home')
