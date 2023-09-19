@@ -29,6 +29,7 @@ urlpatterns = [
     path('auth/', include('social_django.urls', namespace='social')),
     path('',include("home.urls")),
     path('certificate/',include("certificate.urls")),
+    path('scanner', include("scanner.urls")),
 ]
 
 from django.conf import settings

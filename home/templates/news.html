@@ -6,16 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cysec Gitam</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'news.css' %}">
     <link rel="stylesheet" href="{% static 'community.css' %}">
-    <link rel="shortcut icon" type="image/png" href="{% static 'main/logo-black.png' %}" />
+    <link rel="shortcut icon" type="image/png" href="{% static 'cyseclogo.png' %}" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </head>
 
-<body>
+<body style="background-color: #212529;">
 
     
     {% block content %}
@@ -60,7 +60,7 @@
 
 
     {% if post_pagin.has_other_pages %}
-        <div class="pagination">
+        <div class="pagination" style="color: white;">
             <ul class="container">
                 {% if post_pagin.has_previous %}
                 <li><a class="btn page-link" href="?page=1">&laquo; First</a></li>
