@@ -45,7 +45,7 @@
                 <label for="{{ form.registrar.id_for_label }}"><b>Verification By:</b></label>
                 {{ form.registrar }}
             </div>
-            <button class="btn btn-link" id="submitbtn" type="submit" value="" disabled="autofocus"></button>
+            <button class="btn btn-primary mt-3" id="submitbtn" type="submit" value="" disabled="autofocus">Verify</button>
             <div class="eventdata text-center mt-2">
                 <h3>IN: {{ admitted }}</h3>
                 <h3>OUT: {{ out }}</h3>
@@ -65,7 +65,7 @@
         console.log(`Scan result: ${decodedText}`, decodedResult);
         document.getElementById("id_qrtext").value = decodedText;
         document.getElementById("submitbtn").disabled = false;
-        document.getElementById("submitbtn").click();
+        //document.getElementById("submitbtn").click();
         // ...
         // html5QrcodeScanner.clear();
         // ^ this will stop the scanner (video feed) and clear the scan area.
