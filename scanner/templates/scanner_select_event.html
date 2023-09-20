@@ -5,8 +5,25 @@
     CYSEC GITAM
 {% endblock title %}
     
-    
 
 {% block content %}
-    
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <form method="post" class="form-group">
+        {% csrf_token %}
+        <label for="csvinput" class="fw-bold mb-3">Select Event for Scanning</label>
+        <br>
+        {% if events %}
+            <select class="form-select" id="" name="event_id" required aria-label="Select Event">
+                {% for event in events %}
+                    <option value="{{ event.event_id }}">{{ event.event_name }}</option>
+                {% endfor %}
+            </select>
+        {% endif %}
+        
+        <!-- Add the Next Button -->
+        <button type="submit" class="btn btn-primary mt-3">Next</button>
+    </form>
+</div>
+
 {% endblock content %}
