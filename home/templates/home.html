@@ -183,9 +183,14 @@
                 <a href="{% url 'social:begin' 'google-oauth2' %}" class="event-register-button">Register for the event</a>
               {% endif %}
               <br>
+              {% if event.zoom_link %}
+              <a href="{{ event.zoom_link }}" class="event-register-button" style="background-color: #25d366;color:#000000"><strong>Topics and rules</strong></a>
+              {% endif %}
+              <br>
               {% if event.whatsapp_group_link %}
               <a href="{{ event.whatsapp_group_link }}" class="event-register-button" style="background-color: #25d366;color:#000000"><strong>Join Whatsapp Group</strong></a>
               {% endif %}
+
           </div>
           <div class="event-right-column">
               <img src="https://cysec.gitam.edu/home/cysecserver/CYSEC-WEBSITE/media/{{ event.imageurl}}" alt="Image" class="event-image">

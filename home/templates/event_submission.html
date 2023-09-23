@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PDF File Upload and Preview</title>
+    <!-- Add Bootstrap CSS link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        /* Additional CSS for mobile responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0;
+            }
+            .col-md-6 {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h2 class="text-center">Upload a PDF</h2>
+                <form id="pdfUploadForm" enctype="multipart/form-data" method="post">
+                    <div class="mb-3">
+                        <label for="pdfFile" class="form-label">Select a PDF file:</label>
+                        <input type="file" class="form-control" id="pdfFile" accept=".pdf">
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="uploadButton" disabled>Upload</button>
+                </form>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-6 offset-md-3">
+                <h2 class="text-center">Preview</h2>
+                <canvas id="pdfViewer" style="border: 3px solid #000000;"></canvas>
+                <div class="text-center mt-2">
+                    <button id="prev" class="btn btn-primary">Previous</button>
+                    <span id="page_num">1</span> / <span id="page_count">1</span>
+                    <button id="next" class="btn btn-primary">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Bootstrap JS script (optional, for some features) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/js/bootstrap.min.js"></script>
+
+    <!-- PDF.js script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+
+    <script>
+        const pdfFileInput = document.getElementById('pdfFile');
+        const canvas = document.getElementById('pdfViewer');
+        const uploadButton = document.getElementById('uploadButton');
+        const ctx = canvas.getContext('2d');
+        let pdfDoc = null;
+        let pageNum = 1;
+        let pageRendering = false;
+        let pageNumPending = null;
+        const scale = 0.8;
+
+        function renderPage(num) {
+            pageRendering = true;
+            pdfDoc.getPage(num).then(function(page) {
+                const viewport = page.getViewport({ scale });
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+                const renderContext = {
+                    canvasContext: ctx,
+                    viewport: viewport
+                };
+                const renderTask = page.render(renderContext);
+                renderTask.promise.then(function() {
+                    pageRendering = false;
+                    if (pageNumPending !== null) {
+                        renderPage(pageNumPending);
+                        pageNumPending = null;
+                    }
+                });
+            });
+            document.getElementById('page_num').textContent = num;
+        }
+
+        function queueRenderPage(num) {
+            if (pageRendering) {
+                pageNumPending = num;
+            } else {
+                renderPage(num);
+            }
+        }
+
+        function onPrevPage() {
+            if (pageNum <= 1) {
+                return;
+            }
+            pageNum--;
+            queueRenderPage(pageNum);
+        }
+        document.getElementById('prev').addEventListener('click', onPrevPage);
+
+        function onNextPage() {
+            if (pageNum >= pdfDoc.numPages) {
+                return;
+            }
+            pageNum++;
+            queueRenderPage(pageNum);
+        }
+        document.getElementById('next').addEventListener('click', onNextPage);
+
+        pdfFileInput.addEventListener('change', () => {
+            const selectedFile = pdfFileInput.files[0];
+            if (selectedFile) {
+                if (selectedFile.type === 'application/pdf') {
+                    const fileReader = new FileReader();
+                    fileReader.onload = function() {
+                        const pdfData = new Uint8Array(this.result);
+                        pdfjsLib.getDocument({ data: pdfData }).promise.then(function(pdf) {
+                            pdfDoc = pdf;
+                            document.getElementById('page_count').textContent = pdfDoc.numPages;
+                            renderPage(1);
+                        }).catch(function(error) {
+                            console.error('Error loading PDF:', error);
+                        });
+                    };
+                    fileReader.readAsArrayBuffer(selectedFile);
+                } else {
+                    alert('Please select a PDF file.');
+                    pdfFileInput.value = '';
+                }
+            }
+        });
+        pdfFileInput.addEventListener('change', function() {
+            uploadButton.disabled = !pdfFileInput.files[0] || pdfFileInput.files[0].type !== 'application/pdf';
+        });
+    </script>
+</body>
+</html>

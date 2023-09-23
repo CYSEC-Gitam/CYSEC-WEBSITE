@@ -47,6 +47,8 @@ class events(models.Model):
     imageurl = models.ImageField(upload_to=generate_filename)
     zoom_link = models.URLField(null=True, blank=True)
     whatsapp_group_link = models.URLField(null=True, blank=True)
+    is_submission = models.BooleanField(default=False)
+    
 
    
  
@@ -110,10 +112,3 @@ class UserDetails(models.Model):
 
 
 
-
-
-# class eventqrs(models.Model):
-#     event_id = models.IntegerField()
-#     email = models.EmailField(max_length=1024)
-#     registered_datetime = models.DateTimeField(default=timezone.now)
-#     user_event_id = models.CharField(max_length=200, blank=True , null=True)
