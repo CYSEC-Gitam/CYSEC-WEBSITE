@@ -175,12 +175,20 @@
               </div>
               {% if user.is_authenticated %}
                 {% if event.event_id in registered %}
-                <a href="" class="event-register-button" style="background-color: #0056b3;">Already registared for the event</a>
+                  {% if event.is_submission %}
+                    {% if event.event_id in  submissions %}
+                    <a href="" class="event-register-button" style="background-color: #0056b3;" ><strong>Already Submitted</strong></a>
+                    {% else %}
+                    <a href="{% url 'eventsubmission' event.event_id %}" class="event-register-button"><strong>Upload your submission</strong></a>
+                    {% endif %}
+                  {% else %}
+                    <a href="" class="event-register-button" style="background-color: #0056b3;"><strong>Already registared for the event</strong></a>
+                  {% endif %}
                 {% else %}
-                <a href="{% url 'register_event' event.event_id %}" class="event-register-button">Register for the event</a>
+                <a href="{% url 'register_event' event.event_id %}" class="event-register-button"><strong>Register for the event</strong></a>
                 {% endif %}
               {% else %}
-                <a href="{% url 'social:begin' 'google-oauth2' %}" class="event-register-button">Register for the event</a>
+                <a href="{% url 'social:begin' 'google-oauth2' %}" class="event-register-button"><strong>Register for the event</strong></a>
               {% endif %}
               <br>
               {% if event.zoom_link %}

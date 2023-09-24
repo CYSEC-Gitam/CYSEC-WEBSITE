@@ -1,6 +1,6 @@
 from django.contrib import admin
 from import_export.admin import ImportExportModelAdmin
-from .models import faq , events
+from .models import *
 
 class FaqAdmin(ImportExportModelAdmin):
     list_display = ('questionno','question', 'answer', 'hyperlinktext', 'hyperlink')
@@ -27,23 +27,26 @@ admin.site.register(faq, FaqAdmin)
 
 
 class EventsAdmin(ImportExportModelAdmin):
-    list_display = ('event_id', 'title', 'description', 'venue', 'mode', 'start_dateandtime', 'zoom_link', 'is_submission')
+    list_display = ('event_id', 'title', 'description', 'venue', 'mode', 'start_dateandtime', 'zoom_link', 'is_submission','submission_driveid')
     search_fields = ('title', 'venue', 'mode' , 'start_dateandtime')
     list_filter = ('start_dateandtime',)  # Add more fields for filtering if needed
     list_per_page = 20  # Change the number of items displayed per page
 
     fieldsets = (
-        (None, {
-            'fields': ('event_id', 'title', 'description', 'venue', 'mode', 'start_dateandtime', 'end_dateandtime', 'imageurl', 'zoom_link' , 'whatsapp_group_link', 'is_submission')
+        ('Event Details', {
+            'fields': ('event_id', 'title', 'description', 'venue', 'mode', 'start_dateandtime', 'end_dateandtime', 'imageurl')
+        }),
+        ('Event links', {
+            'fields': ('zoom_link' , 'whatsapp_group_link')
+        }),
+        ('Event Submission (if event need any submission)', {
+            'fields': ('is_submission','submission_driveid')
         }),
     )
 
 admin.site.register(events, EventsAdmin)
 
 
-
-from django.contrib import admin
-from .models import UserDetails
 
 class UserDetailsAdmin(ImportExportModelAdmin):
     list_display = ('username', 'first_name', 'last_name', 'email', 'gender', 'study_year')
@@ -67,8 +70,6 @@ admin.site.register(UserDetails, UserDetailsAdmin)
 
 
 
-from .models import EventRegistration
-
 
 @admin.register(EventRegistration)
 class EventRegistrationAdmin(ImportExportModelAdmin):
@@ -78,3 +79,11 @@ class EventRegistrationAdmin(ImportExportModelAdmin):
     date_hierarchy = 'registered_datetime'
     list_per_page = 50
 
+
+@admin.register(event_submission)
+class event_submissionAdmin(ImportExportModelAdmin):
+    list_display = ('event_id', 'email', 'registered_datetime', 'fullname', 'registration_no', 'study_year', 'campus', 'user_submission_id')
+    list_filter = ('event_id', 'registered_datetime','study_year', 'campus')
+    search_fields = ('event_id','email', 'fullname', 'registration_no')
+    date_hierarchy = 'registered_datetime'
+    list_per_page = 50

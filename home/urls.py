@@ -10,4 +10,5 @@ urlpatterns = [
     path('ctftime', ctfs_feed, name="ctftime"),
     path('register_event/<int:event_id>/', register_event, name='register_event'),
     path('login', login, name="login"),
+    path('eventsubmission/<int:event_id>/', eventsubmission, name='eventsubmission'),
 ]

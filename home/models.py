@@ -48,6 +48,7 @@ class events(models.Model):
     zoom_link = models.URLField(null=True, blank=True)
     whatsapp_group_link = models.URLField(null=True, blank=True)
     is_submission = models.BooleanField(default=False)
+    submission_driveid = models.CharField(max_length=200, blank=True , null=True)
     
 
    
@@ -110,5 +111,17 @@ class UserDetails(models.Model):
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
+
+
+class event_submission(models.Model):
+    event_id = models.IntegerField()
+    email = models.EmailField(max_length=1024)
+    registered_datetime = models.DateTimeField(default=timezone.now)
+    fullname = models.CharField(max_length=200)
+    registration_no = models.CharField(max_length=20)
+    study_year = models.CharField(max_length=3)
+    campus = models.CharField(max_length=100)
+    user_submission_id = models.CharField(max_length=200, blank=True , null=True)
+    
 
 

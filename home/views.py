@@ -9,6 +9,7 @@ from datetime import datetime
 import pytz
 from django.contrib.auth.decorators import login_required
 import hashlib
+from .upload import event_upload
 
 
 #### this function is for converting utc time to ctf time of ctfs from ctftime.org 
@@ -76,9 +77,10 @@ def home(request):
         if request.user.is_authenticated:
             event_registrations = EventRegistration.objects.filter(email=request.user.email).values()
             registered = [i['event_id'] for i in event_registrations] 
-            
+            eventsubmissions = event_submission.objects.filter(email=request.user.email).values()
+            submissions = [i['event_id'] for i in eventsubmissions] 
             if UserDetails.objects.filter(email=request.user.email).exists():
-                return render(request,"home.html" , { 'events':first_event,'ctfs': ctfs,'faqs':faqs, 'registered':registered})
+                return render(request,"home.html" , { 'events':first_event,'ctfs': ctfs,'faqs':faqs, 'registered':registered , 'submissions':submissions})
             else:
                 return redirect("logout")
         else:
@@ -165,24 +167,72 @@ def ctfs_feed(request):
 
 
 
-
+def eventsubmission(request, event_id):
+    if request.user.is_authenticated:
+        if request.method == 'GET':
+            user_email = request.user.email
+            eventid = event_id
+            if events.objects.get(event_id=eventid).is_submission:
+                if EventRegistration.objects.filter(email=user_email, event_id=eventid).exists():
+                    if not event_submission.objects.filter(email=user_email, event_id=eventid).exists():
+                        event = events.objects.get(event_id=eventid)
+                        return render(request,'event_submission.html', {'event': event})
+                    else:
+                        messages.success(request, 'You Already uploded the File')
+                        return redirect('home')
+                else:
+                    messages.success(request, 'Please Register for the event')
+                    return redirect('home')
+            else:
+                return redirect('home')
+        elif request.method == 'POST':
+            user_email = request.user.email
+            eventid = event_id
+            if events.objects.get(event_id=eventid).is_submission:
+                if EventRegistration.objects.filter(email=user_email, event_id=eventid).exists():
+                    if not event_submission.objects.filter(email=user_email, event_id=eventid).exists():
+                        upload = request.FILES.get('eventupload')
+                        event  = events.objects.get(event_id=eventid)
+                        user  =  UserDetails.objects.get(email=user_email)
+                        timestamp = timezone.now().strftime('%Y%m%d_%H%M%S')
+                        filename = f"{str(event.title).replace(' ','_')}_{str(user.first_name).replace(' ','_')}_{str(user.last_name).replace(' ','_')}__{timestamp}"
+                        open(filename+'.pdf', 'wb').write(upload.file.read())
+                        parentid = events.objects.get(event_id=eventid).submission_driveid
+                        fileid = event_upload(filename, parentid)
+                        eventsubmission = event_submission(
+                            event_id = event_id,
+                            email = user_email,
+                            fullname = user.first_name + ' ' + user.last_name,
+                            registration_no = user.registration_no,
+                            study_year = user.study_year,
+                            campus = user.campus,
+                            user_submission_id = fileid,
+                        )
+                        eventsubmission.save()
+                        os.remove(filename+'.pdf')
+                        messages.success(request, 'File uploded succesfully')
+                        return redirect('home')
+                    else:
+                        messages.success(request, 'You Already uploded the File')
+                        return redirect('home')
+                else:
+                    messages.success(request, 'Please Register for the event')
+                    return redirect('home')
+            else:
+                return redirect('home')
+    else:
+        return redirect('login')
 
 
 #below functions are added for testing purposes these functions are not part the website
 
 
 def test(request):
-    if request.method == 'GETe':
-        events_list = events.objects.all().values()[0]
-        print(events_list)
-        return render(request, 'test2.html', {'event':events_list})
+    if request.method == 'GET':
+        return render(request, 'event_submission.html')
     else:
-        regno = '122010324054'
-        user = UserDetails.objects.filter(registration_no=regno).values()
-        ids = []
-        for i in user:
-            ids.append(i['email'])
-        return render(request, 'test2.html' , {'user':ids , 'reg':'jerryshravan@gmail.com'})
+        return render(request, 'event_submission.html')
+    
     
     
 def qrfill():

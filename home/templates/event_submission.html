@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,8 +7,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
     <style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
         /* Additional CSS for mobile responsiveness */
-        @media (max-width: 768px) {
+        @media (max-width: 968px) {
             .container {
                 padding: 0;
             }
@@ -18,14 +27,16 @@
     </style>
 </head>
 <body>
-    <div class="container mt-5">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-6 offset-md-3">
-                <h2 class="text-center">Upload a PDF</h2>
-                <form id="pdfUploadForm" enctype="multipart/form-data" method="post">
+                <h2 class="text-center"><strong>{{ event.title }}</strong></h2><br>
+                <h2 class="text-center">Upload your submission</h2>
+                <form enctype="multipart/form-data" method="post" validate>
+                    {% csrf_token %}
                     <div class="mb-3">
-                        <label for="pdfFile" class="form-label">Select a PDF file:</label>
-                        <input type="file" class="form-control" id="pdfFile" accept=".pdf">
+                        <label for="pdfFile" class="form-label">Select a PDF file (max size 5MB):</label>
+                        <input type="file" class="form-control" id="pdfFile" accept=".pdf" name="eventupload">
                     </div>
                     <button type="submit" class="btn btn-primary" id="uploadButton" disabled>Upload</button>
                 </form>
@@ -34,7 +45,7 @@
         <div class="row mt-3">
             <div class="col-md-6 offset-md-3">
                 <h2 class="text-center">Preview</h2>
-                <canvas id="pdfViewer" style="border: 3px solid #000000;"></canvas>
+                <canvas id="pdfViewer" style="border: 3px solid #ffffff;width: 100%;"></canvas>
                 <div class="text-center mt-2">
                     <button id="prev" class="btn btn-primary">Previous</button>
                     <span id="page_num">1</span> / <span id="page_count">1</span>
@@ -135,5 +146,16 @@
             uploadButton.disabled = !pdfFileInput.files[0] || pdfFileInput.files[0].type !== 'application/pdf';
         });
     </script>
+    <div class="bgcontainer" style="margin: 0">
+        <script
+          type="text/javascript"
+          color="0,255,0"
+          pointColor="0,255,0"
+          opacity="0.7"
+          zIndex="-2"
+          count="200"
+          src="{% static 'bg.js' %}"
+        ></script>
+    </div>
 </body>
 </html>
