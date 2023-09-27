@@ -112,6 +112,8 @@ def login(request):
     messages.success(request, 'Please Login to continue')
     return redirect('home')
 
+
+@login_required(login_url="/auth/login/google-oauth2/")
 def register_event(request, event_id):
     if request.user.is_authenticated:
         if UserDetails.objects.filter(email=request.user.email).exists():
