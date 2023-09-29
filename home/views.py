@@ -168,7 +168,7 @@ def ctfs_feed(request):
     return render(request , 'ctfs.html' , {'current_ctfs' : current_ctfs , 'past_ctfs' : past_ctfs , 'upcoming_ctfs' : upcoming_ctfs})
 
 
-
+@login_required(login_url="/auth/login/google-oauth2/")
 def eventsubmission(request, event_id):
     if request.user.is_authenticated:
         if request.method == 'GET':
