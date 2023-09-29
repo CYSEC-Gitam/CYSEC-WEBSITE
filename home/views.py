@@ -116,22 +116,25 @@ def login(request):
 @login_required(login_url="/auth/login/google-oauth2/")
 def register_event(request, event_id):
     if request.user.is_authenticated:
-        if UserDetails.objects.filter(email=request.user.email).exists():
-            user = UserDetails.objects.get(email=request.user.email)
-            current_datetime = datetime.now()
-            fullname = user.first_name + ' ' + user.last_name 
-            
-            user_event_id =  hashlib.md5(( str(event_id) + str(request.user.email) + str(fullname) + str(current_datetime)).encode())
-            user_event_id = user_event_id.hexdigest()
-            if not EventRegistration.objects.filter(email=request.user.email , event_id=event_id).exists():
-                if str(event_id) == "230920":
-                    send_pass_mail(fullname, request.user.email, user_event_id)
+        if events.objects.filter(event_id=event_id).exists():
+            if UserDetails.objects.filter(email=request.user.email).exists():
+                user = UserDetails.objects.get(email=request.user.email)
+                current_datetime = datetime.now()
+                fullname = user.first_name + ' ' + user.last_name 
+                
+                user_event_id =  hashlib.md5(( str(event_id) + str(request.user.email) + str(fullname) + str(current_datetime)).encode())
+                user_event_id = user_event_id.hexdigest()
+                if not EventRegistration.objects.filter(email=request.user.email , event_id=event_id).exists():
+                    if str(event_id) == "230920":
+                        send_pass_mail(fullname, request.user.email, user_event_id)
 
-                EventRegistration.objects.get_or_create(event_id=event_id, email=user.email, registered_datetime = current_datetime,fullname=fullname, registration_no= user.registration_no , study_year=user.study_year,campus=user.campus, user_event_id=user_event_id)
-            messages.success(request, 'Event registration successfully.')
-            return redirect('home')
+                    EventRegistration.objects.get_or_create(event_id=event_id, email=user.email, registered_datetime = current_datetime,fullname=fullname, registration_no= user.registration_no , study_year=user.study_year,campus=user.campus, user_event_id=user_event_id)
+                messages.success(request, 'Event registration successfully.')
+                return redirect('home')
+            else:
+                return redirect('user_details')
         else:
-            return redirect('user_details')
+            return redirect('home')
     else:
         return redirect('home')
 
@@ -171,57 +174,60 @@ def ctfs_feed(request):
 @login_required(login_url="/auth/login/google-oauth2/")
 def eventsubmission(request, event_id):
     if request.user.is_authenticated:
-        if request.method == 'GET':
-            user_email = request.user.email
-            eventid = event_id
-            if events.objects.get(event_id=eventid).is_submission:
-                if EventRegistration.objects.filter(email=user_email, event_id=eventid).exists():
-                    if not event_submission.objects.filter(email=user_email, event_id=eventid).exists():
-                        event = events.objects.get(event_id=eventid)
-                        return render(request,'event_submission.html', {'event': event})
+        if events.objects.filter(event_id=event_id).exists():
+            if request.method == 'GET':
+                user_email = request.user.email
+                eventid = event_id
+                if events.objects.get(event_id=eventid).is_submission:
+                    if EventRegistration.objects.filter(email=user_email, event_id=eventid).exists():
+                        if not event_submission.objects.filter(email=user_email, event_id=eventid).exists():
+                            event = events.objects.get(event_id=eventid)
+                            return render(request,'event_submission.html', {'event': event})
+                        else:
+                            messages.success(request, 'You Already uploded the File')
+                            return redirect('home')
                     else:
-                        messages.success(request, 'You Already uploded the File')
+                        messages.success(request, 'Please Register for the event')
                         return redirect('home')
                 else:
-                    messages.success(request, 'Please Register for the event')
                     return redirect('home')
-            else:
-                return redirect('home')
-        elif request.method == 'POST':
-            user_email = request.user.email
-            eventid = event_id
-            if events.objects.get(event_id=eventid).is_submission:
-                if EventRegistration.objects.filter(email=user_email, event_id=eventid).exists():
-                    if not event_submission.objects.filter(email=user_email, event_id=eventid).exists():
-                        upload = request.FILES.get('eventupload')
-                        event  = events.objects.get(event_id=eventid)
-                        user  =  UserDetails.objects.get(email=user_email)
-                        timestamp = timezone.now().strftime('%Y%m%d_%H%M%S')
-                        filename = f"{str(event.title).replace(' ','_')}_{str(user.first_name).replace(' ','_')}_{str(user.last_name).replace(' ','_')}__{timestamp}"
-                        open(filename+'.pdf', 'wb').write(upload.file.read())
-                        parentid = events.objects.get(event_id=eventid).submission_driveid
-                        fileid = event_upload(filename, parentid)
-                        eventsubmission = event_submission(
-                            event_id = event_id,
-                            email = user_email,
-                            fullname = user.first_name + ' ' + user.last_name,
-                            registration_no = user.registration_no,
-                            study_year = user.study_year,
-                            campus = user.campus,
-                            user_submission_id = fileid,
-                        )
-                        eventsubmission.save()
-                        os.remove(filename+'.pdf')
-                        messages.success(request, 'File uploded succesfully')
-                        return redirect('home')
+            elif request.method == 'POST':
+                user_email = request.user.email
+                eventid = event_id
+                if events.objects.get(event_id=eventid).is_submission:
+                    if EventRegistration.objects.filter(email=user_email, event_id=eventid).exists():
+                        if not event_submission.objects.filter(email=user_email, event_id=eventid).exists():
+                            upload = request.FILES.get('eventupload')
+                            event  = events.objects.get(event_id=eventid)
+                            user  =  UserDetails.objects.get(email=user_email)
+                            timestamp = timezone.now().strftime('%Y%m%d_%H%M%S')
+                            filename = f"{str(event.title).replace(' ','_')}_{str(user.first_name).replace(' ','_')}_{str(user.last_name).replace(' ','_')}__{timestamp}"
+                            open(filename+'.pdf', 'wb').write(upload.file.read())
+                            parentid = events.objects.get(event_id=eventid).submission_driveid
+                            fileid = event_upload(filename, parentid)
+                            eventsubmission = event_submission(
+                                event_id = event_id,
+                                email = user_email,
+                                fullname = user.first_name + ' ' + user.last_name,
+                                registration_no = user.registration_no,
+                                study_year = user.study_year,
+                                campus = user.campus,
+                                user_submission_id = fileid,
+                            )
+                            eventsubmission.save()
+                            os.remove(filename+'.pdf')
+                            messages.success(request, 'File uploded succesfully')
+                            return redirect('home')
+                        else:
+                            messages.success(request, 'You Already uploded the File')
+                            return redirect('home')
                     else:
-                        messages.success(request, 'You Already uploded the File')
+                        messages.success(request, 'Please Register for the event')
                         return redirect('home')
                 else:
-                    messages.success(request, 'Please Register for the event')
                     return redirect('home')
-            else:
-                return redirect('home')
+        else:
+            return redirect('home')
     else:
         return redirect('login')
 
