@@ -188,7 +188,7 @@
                 <a href="{% url 'register_event' event.event_id %}" class="event-register-button"><strong>Register for the event</strong></a>
                 {% endif %}
               {% else %}
-                <a href="{% url 'social:begin' 'google-oauth2' %}" class="event-register-button"><strong>Register for the event</strong></a>
+                <a href="{% url 'register_event' event.event_id %}" class="event-register-button"><strong>Register for the event</strong></a>
               {% endif %}
               <br>
               {% if event.zoom_link %}
