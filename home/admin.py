@@ -49,14 +49,14 @@ admin.site.register(events, EventsAdmin)
 
 
 class UserDetailsAdmin(ImportExportModelAdmin):
-    list_display = ('username', 'first_name', 'last_name', 'email', 'gender', 'study_year')
+    list_display = ('username', 'first_name', 'last_name', 'email', 'gender', 'study_year' ,'mobile')
     search_fields = ('username', 'first_name', 'last_name', 'email', 'registration_no', 'institute')
-    list_filter = ('gender', 'study_year')
+    list_filter = ( 'campus','gender', 'study_year')
     list_per_page = 20
 
     fieldsets = (
         ('Personal Information', {
-            'fields': ('username', 'first_name', 'last_name', 'email', 'date_of_birth', 'gender', 'profile_image', 'bio')
+            'fields': ('username', 'first_name', 'last_name', 'email', 'mobile', 'date_of_birth', 'gender', 'profile_image', 'bio')
         }),
         ('Academic Information', {
             'fields': ('registration_no', 'institute', 'branch', 'campus', 'study_year')
