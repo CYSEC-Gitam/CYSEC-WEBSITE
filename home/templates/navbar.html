@@ -1,5 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet" />
+  {% load static %}
+  <link rel="shortcut icon" type="image/png" href="{% static 'cyseclogo.png' %}" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      width: 100%;
+      z-index: 2;
+      background-color: transparent;
+      color: #fff;
+    }
+
+    .navbar .logo img {
+      height: 40px;
+      width: 40px;
+    }
+
+    .navbar-center {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .navbar-center ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .navbar-center ul li {
+      margin: 0 15px;
+    }
+
+    .navbar-center ul li a {
+      text-decoration: none;
+      color: #ebebeb;
+      display: flex;
+      align-items: center;
+      transition: 0.2s all ease;
+    }
+
+    .navbar-center ul li a:hover {
+      color: #2181e8;
+    }
+
+    .navbar-center ul li a span {
+      margin-left: 5px;
+      font-size: 15px;
+    }
+
+    .navbar-right {
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar-right ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar-right ul li {
+      margin: 0 15px;
+    }
+
+    .navbar-right ul li a {
+      text-decoration: none;
+      color: #ebebeb;
+      display: flex;
+      align-items: center;
+      transition: 0.2s all ease;
+    }
+
+    .navbar-right ul li a:hover {
+      color: #2181e8;
+    }
+
+    .navbar-right ul li a span {
+      margin-left: 5px;
+      font-size: 15px;
+    }
+
+    .navbar .menu-icon {
+      display: none;
+      font-size: 28px;
+      color: #fff;
+      cursor: pointer;
+      margin-left: 15px;
+    }
+
+    .navbar-center.show {
+      display: flex;
+      position: absolute;
+      top: 50px;
+      left: 0;
+      right: 0;
+      background-color: #000000;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 0;
+    }
+
+    .navbar-center.show ul {
+      flex-direction: column;
+    }
+
+    .navbar-center.show ul li {
+      margin: 10px 0;
+    }
+
+    @media (max-width: 768px) {
+      .navbar-center {
+        display: none;
+      }
+
+      .navbar .menu-icon {
+        display: block;
+      }
+    }
+  </style>
+  <script>
+    function toggleMenu() {
+      var menuIcon = document.getElementById('menuIcon');
+      var navCenter = document.querySelector('.navbar-center');
+      menuIcon.classList.toggle('active');
+      navCenter.classList.toggle('show');
+    }
+  </script>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="#" class="logo"><img src="{% static 'cyseclogo.png' %}"></a>
+    <div class="navbar-center">
+      <ul>
+        <li><a href="{% url 'home' %}"><i class="material-icons">home</i><span>Home</span></a></li>
+        <li><a href="{% url 'news' %}"><i class="material-icons">newspaper</i><span>News</span></a></li>
+        <li><a href="{% url 'ctftime' %}"><i class="material-icons">terminal</i><span>CTFs</span></a></li>
+        <li><a href="#"><i class="material-icons">groups</i><span>Team</span></a></li>
+        <li><a href="#"><i class="material-icons">event</i><span>Events</span></a></li>
+      </ul>
+    </div>
+    <div class="navbar-right">
+      {% if user.is_authenticated %}
+        <ul>
+          <li><a href="#"><i class="material-icons">person</i><span>Profile</span></a></li>
+          {% if user.is_staff %}
+            <li><a href="{% url 'certificate-home' %}"><i class="material-icons">card_membership</i><span>Certificate</span></a></li>
+            <li><a href="https://cysec.gitam.edu/admin"><i class="material-icons">supervisor_account</i><span>Admin</span></a></li>
+          {% endif %}
+          <li><a href="{% url 'logout' %}"><i class="material-icons">logout</i><span>Logout</span></a></li>
+        </ul>
+      {% else %}
+        <ul>
+          <li><a href="{% url 'social:begin' 'google-oauth2' %}"><i class="material-icons">login</i><span>Login</span></a></li>
+        </ul>
+      {% endif %}
+      <div class="menu-icon" id="menuIcon" onclick="toggleMenu()">
+        <i class="material-icons">menu</i>
+      </div>
+    </div>
+  </nav>
+</body>
+</html>
+<!-- <!DOCTYPE html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -185,4 +370,4 @@
       </ul>
     </nav>
   </body>
-</html>
+</html> -->
